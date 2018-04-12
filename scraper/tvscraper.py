@@ -13,6 +13,7 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 import pandas as pd
+import itertools
 
 TARGET_URL = "http://www.imdb.com/search/title?num_votes=5000,&sort=user_rating,desc&start=1&title_type=tv_series"
 BACKUP_HTML = 'tvseries.html'
@@ -52,7 +53,7 @@ def extract_tvseries(dom):
         names.append(serie_name)
 
         # rating
-        serie_rating = float(serie.strong.text)
+        serie_rating = serie.strong.text
         rating.append(serie_rating)
 
         # genres
@@ -79,16 +80,16 @@ def extract_tvseries(dom):
         runtimes.append(serie_runtime2)
 
 
-        list = pd.DataFrame({
-                    'names': names,
-                    'rating': rating,
-                    'genres': genres,
-                    'actors': actors,
-                    'runtimes': runtimes})
+        #listt = pd.DataFrame({
+        #            'names': names,
+        #            'rating': rating,
+        #            'genres': genres,
+        #            'actors': actors,
+        #            'runtimes': runtimes})
         #print(list.info())
-        print(list)
+        #print(listt)
 
-        tv_csv = list.to_csv()
+        #tv_csv = list.to_csv()
 
     #print(names)
     #print(rating)
@@ -96,7 +97,26 @@ def extract_tvseries(dom):
     #print(actors)
     #print(runtimes)
 
+    complete_series_list = []
+    complete_series_list = list(zip(names, rating, genres, actors, runtimes))
+    #for name in names:
+    #    for rat in rating:
+    #        complete_series_list.append(name + rat)
 
+
+    #for pair in itertools.product(names, rating):
+    #    complete_series_list.append(''.join(pair))
+
+    print(complete_series_list)
+
+#first_list = ['a', 'b', 'c']
+#second_list = ['d', 'e', 'f']
+
+#combined_list = []
+#for i in first_list:
+    #for j in second_list:
+#        combined_list.append(i + j)
+#print(combined_list)
 
 
     # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
@@ -104,7 +124,7 @@ def extract_tvseries(dom):
     # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
     # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
 
-    return [list]   # REPLACE THIS LINE AS WELL AS APPROPRIATE
+    return [complete_series_list]   # REPLACE THIS LINE AS WELL AS APPROPRIATE
 
 
 def save_csv(outfile, tvseries):
@@ -113,6 +133,7 @@ def save_csv(outfile, tvseries):
     """
     writer = csv.writer(outfile)
     writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
+    writer.writerow(tvseries)
 
     # ADD SOME CODE OF YOURSELF HERE TO WRITE THE TV-SERIES TO DISK
 
