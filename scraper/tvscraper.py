@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-# Name:
-# Student number:
+# Name: Amerens Jongsma
+# Student number: 10735666
+# 1
 """
 This script scrapes IMDB and outputs a CSV file with highest rated tv series.
 """
@@ -14,7 +15,7 @@ from bs4 import BeautifulSoup
 TARGET_URL = "http://www.imdb.com/search/title?num_votes=5000,&sort=user_rating,desc&start=1&title_type=tv_series"
 BACKUP_HTML = 'tvseries.html'
 OUTPUT_CSV = 'tvseries.csv'
-
+print("Amerens")
 
 def extract_tvseries(dom):
     """
@@ -26,6 +27,8 @@ def extract_tvseries(dom):
     - Actors/actresses (comma separated if more than one)
     - Runtime (only a number!)
     """
+    response = get(TARGET_URL)
+    print(response.text[:500])
 
     # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
     # HIGHEST RATED TV-SERIES
