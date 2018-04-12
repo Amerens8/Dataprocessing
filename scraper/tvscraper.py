@@ -90,7 +90,7 @@ def extract_tvseries(dom):
     # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
     # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
 
-    return [complete_series_list]   # REPLACE THIS LINE AS WELL AS APPROPRIATE
+    return complete_series_list
 
 
 def save_csv(outfile, tvseries):
@@ -101,7 +101,7 @@ def save_csv(outfile, tvseries):
     writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
 
     for serie in tvseries:
-        writer.writerow([serie])
+        writer.writerow(serie)
 
 
 
