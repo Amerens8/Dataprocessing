@@ -41,12 +41,14 @@ def extract_tvseries(dom):
     genres = []
     actors = []
     runtimes = []
+    complete_series_list = []
 
     series = souped.find_all('div', class_ = 'lister-item mode-advanced')
-    print(type(series))
-    print(len(series))
 
+    # printing the amount of series on the webpage
+    print('The amount of series on the webpage is {}.'.format(len(series)))
 
+    # iterate over all series and collect data
     for serie in series:
         # name
         serie_name = serie.h3.a.text
@@ -76,19 +78,14 @@ def extract_tvseries(dom):
 
         # runtime
         serie_runtime = serie.p.find('span', class_ = 'runtime').text
+
+        # deleting all other letter (min.) to be only left with the number
         serie_runtime2 = int(re.sub('[^0-9]', '', serie_runtime))
         runtimes.append(serie_runtime2)
 
 
-    complete_series_list = []
+    # combining all obtained data in one list
     complete_series_list = list(zip(names, rating, genres, actors, runtimes))
-
-    # print(complete_series_list)
-
-    # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
-    # HIGHEST RATED TV-SERIES
-    # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
-    # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
 
     return complete_series_list
 
@@ -98,6 +95,7 @@ def save_csv(outfile, tvseries):
     Output a CSV file containing highest rated TV-series.
     """
     writer = csv.writer(outfile)
+    writer.writerow(['sep=,'])
     writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
 
     for serie in tvseries:
