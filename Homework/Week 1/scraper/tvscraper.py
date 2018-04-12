@@ -95,8 +95,8 @@ def save_csv(outfile, tvseries):
     Output a CSV file containing highest rated TV-series.
     """
     writer = csv.writer(outfile)
-    writer.writerow(['sep=,'])
-    writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
+    # writer.writerow(['sep=,'])
+    writer.writerow(['Title', 'Rating', 'Genre', 'Actresses/actors', 'Runtime'])
 
     for serie in tvseries:
         writer.writerow(serie)
