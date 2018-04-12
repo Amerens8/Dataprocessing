@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Name: Amerens Jongsma
 # Student number: 10735666
+# sources: BeautifulSoup documentation and "Web Scraping with Python and BeautifulSoup"
+# https://www.dataquest.io/blog/web-scraping-beautifulsoup/
 """
 This script scrapes IMDB and outputs a CSV file with highest rated tv series.
 """
