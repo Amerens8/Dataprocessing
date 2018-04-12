@@ -12,6 +12,7 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
+import pandas as pd
 
 TARGET_URL = "http://www.imdb.com/search/title?num_votes=5000,&sort=user_rating,desc&start=1&title_type=tv_series"
 BACKUP_HTML = 'tvseries.html'
@@ -44,23 +45,6 @@ def extract_tvseries(dom):
     print(type(series))
     print(len(series))
 
-    #serie_actors = series[0].find_all('div', class_ = 'lister-item-content')
-    serie_actors = series[0].find('div', class_ = 'lister-item-content')
-    aas = serie_actors.find_all('<a href="name"/(.*?)'>)
-
-    print(aas)
-    print link.attrs['href']
-    #for actor in aas:
-    #    x = actor.find_all('<a href="name"/(.*?)>')
-    #    print(x)
-        #if actor.has_attr('href'):
-
-
-        #    url_actor = re.find_all(pattern, actor)
-        #    print(actor.attrs['href'])
-        #    print(url_actor)
-
-
 
     for serie in series:
         # name
@@ -76,17 +60,40 @@ def extract_tvseries(dom):
         genres.append(serie_genre)
 
         # actors
+        full_content = serie.find('div', class_ = 'lister-item-content')
+        actors_link = full_content.find_all("a", href=re.compile("name"))
 
-        #join
+        actors_in_serie = ''
+        for actor in actors_link:
+            if actors_in_serie == '':
+                actors_in_serie += actor.string
+            else:
+                actors_in_serie += ', ' + actor.string
+
+        #actors.append(actors_link)
+        actors.append(actors_in_serie)
 
         # runtime
-        serie_runtime = serie.p.find('span', class_ = 'runtime')
-        runtimes.append(serie_runtime.text)
+        serie_runtime = serie.p.find('span', class_ = 'runtime').text
+        serie_runtime2 = int(re.sub('[^0-9]', '', serie_runtime))
+        runtimes.append(serie_runtime2)
 
+
+        list = pd.DataFrame({
+                    'names': names,
+                    'rating': rating,
+                    'genres': genres,
+                    'actors': actors,
+                    'runtimes': runtimes})
+        #print(list.info())
+        print(list)
+
+        tv_csv = list.to_csv()
 
     #print(names)
     #print(rating)
     #print(genres)
+    #print(actors)
     #print(runtimes)
 
 
@@ -97,7 +104,7 @@ def extract_tvseries(dom):
     # NOTE: FOR THIS EXERCISE YOU ARE ALLOWED (BUT NOT REQUIRED) TO IGNORE
     # UNICODE CHARACTERS AND SIMPLY LEAVE THEM OUT OF THE OUTPUT.
 
-    return []   # REPLACE THIS LINE AS WELL AS APPROPRIATE
+    return [list]   # REPLACE THIS LINE AS WELL AS APPROPRIATE
 
 
 def save_csv(outfile, tvseries):
