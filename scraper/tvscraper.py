@@ -80,44 +80,10 @@ def extract_tvseries(dom):
         runtimes.append(serie_runtime2)
 
 
-        #listt = pd.DataFrame({
-        #            'names': names,
-        #            'rating': rating,
-        #            'genres': genres,
-        #            'actors': actors,
-        #            'runtimes': runtimes})
-        #print(list.info())
-        #print(listt)
-
-        #tv_csv = list.to_csv()
-
-    #print(names)
-    #print(rating)
-    #print(genres)
-    #print(actors)
-    #print(runtimes)
-
     complete_series_list = []
     complete_series_list = list(zip(names, rating, genres, actors, runtimes))
-    #for name in names:
-    #    for rat in rating:
-    #        complete_series_list.append(name + rat)
 
-
-    #for pair in itertools.product(names, rating):
-    #    complete_series_list.append(''.join(pair))
-
-    print(complete_series_list)
-
-#first_list = ['a', 'b', 'c']
-#second_list = ['d', 'e', 'f']
-
-#combined_list = []
-#for i in first_list:
-    #for j in second_list:
-#        combined_list.append(i + j)
-#print(combined_list)
-
+    # print(complete_series_list)
 
     # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
     # HIGHEST RATED TV-SERIES
@@ -133,9 +99,10 @@ def save_csv(outfile, tvseries):
     """
     writer = csv.writer(outfile)
     writer.writerow(['Title', 'Rating', 'Genre', 'Actors', 'Runtime'])
-    writer.writerow(tvseries)
 
-    # ADD SOME CODE OF YOURSELF HERE TO WRITE THE TV-SERIES TO DISK
+    for serie in tvseries:
+        writer.writerow([serie])
+
 
 
 def simple_get(url):
