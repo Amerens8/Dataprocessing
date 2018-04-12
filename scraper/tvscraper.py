@@ -7,6 +7,7 @@ This script scrapes IMDB and outputs a CSV file with highest rated tv series.
 """
 
 import csv
+import re
 from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
@@ -15,7 +16,6 @@ from bs4 import BeautifulSoup
 TARGET_URL = "http://www.imdb.com/search/title?num_votes=5000,&sort=user_rating,desc&start=1&title_type=tv_series"
 BACKUP_HTML = 'tvseries.html'
 OUTPUT_CSV = 'tvseries.csv'
-print("Amerens")
 
 def extract_tvseries(dom):
     """
@@ -27,8 +27,70 @@ def extract_tvseries(dom):
     - Actors/actresses (comma separated if more than one)
     - Runtime (only a number!)
     """
+
     response = get(TARGET_URL)
-    print(response.text[:500])
+    # print(response.text[:1000])
+    souped = BeautifulSoup(response.text, 'html.parser')
+    type(souped)
+
+    # Lists to store the scraped data in
+    names = []
+    rating = []
+    genres = []
+    actors = []
+    runtimes = []
+
+    series = souped.find_all('div', class_ = 'lister-item mode-advanced')
+    print(type(series))
+    print(len(series))
+
+    #serie_actors = series[0].find_all('div', class_ = 'lister-item-content')
+    serie_actors = series[0].find('div', class_ = 'lister-item-content')
+    aas = serie_actors.find_all('<a href="name"/(.*?)'>)
+
+    print(aas)
+    print link.attrs['href']
+    #for actor in aas:
+    #    x = actor.find_all('<a href="name"/(.*?)>')
+    #    print(x)
+        #if actor.has_attr('href'):
+
+
+        #    url_actor = re.find_all(pattern, actor)
+        #    print(actor.attrs['href'])
+        #    print(url_actor)
+
+
+
+    for serie in series:
+        # name
+        serie_name = serie.h3.a.text
+        names.append(serie_name)
+
+        # rating
+        serie_rating = float(serie.strong.text)
+        rating.append(serie_rating)
+
+        # genres
+        serie_genre = serie.p.find('span', class_ = 'genre').get_text("|", strip=True)
+        genres.append(serie_genre)
+
+        # actors
+
+        #join
+
+        # runtime
+        serie_runtime = serie.p.find('span', class_ = 'runtime')
+        runtimes.append(serie_runtime.text)
+
+
+    #print(names)
+    #print(rating)
+    #print(genres)
+    #print(runtimes)
+
+
+
 
     # ADD YOUR CODE HERE TO EXTRACT THE ABOVE INFORMATION ABOUT THE
     # HIGHEST RATED TV-SERIES
