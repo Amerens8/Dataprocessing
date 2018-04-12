@@ -30,7 +30,6 @@ def extract_tvseries(dom):
     """
 
     response = get(TARGET_URL)
-    # print(response.text[:1000])
     souped = BeautifulSoup(response.text, 'html.parser')
     type(souped)
 
@@ -72,7 +71,6 @@ def extract_tvseries(dom):
             else:
                 actors_in_serie += ', ' + actor.string
 
-        #actors.append(actors_link)
         actors.append(actors_in_serie)
 
         # runtime
@@ -81,7 +79,6 @@ def extract_tvseries(dom):
         # deleting all other letter (min.) to be only left with the number
         serie_runtime2 = int(re.sub('[^0-9]', '', serie_runtime))
         runtimes.append(serie_runtime2)
-
 
     # combining all obtained data in one list
     complete_series_list = list(zip(names, rating, genres, actors, runtimes))
@@ -93,13 +90,18 @@ def save_csv(outfile, tvseries):
     """
     Output a CSV file containing highest rated TV-series.
     """
+
     writer = csv.writer(outfile)
+
+    # 'uncomment' the following line, if you want to run this in excel
     # writer.writerow(['sep=,'])
+
+    # row with headers
     writer.writerow(['Title', 'Rating', 'Genre', 'Actresses/actors', 'Runtime'])
 
+    # write in each row the data of a series
     for serie in tvseries:
         writer.writerow(serie)
-
 
 
 def simple_get(url):
