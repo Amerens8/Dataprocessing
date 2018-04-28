@@ -32,3 +32,4 @@ def cleaninghapp(csvfile, clean_csvfile):
             x += 1
 
 cleaninghapp('happ2015.csv', 'clean_happ2015.csv')
+cleaninghapp('happ2016.csv', 'clean_happ2016.csv')

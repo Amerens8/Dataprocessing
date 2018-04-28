@@ -20,3 +20,4 @@ def convertCSV2JSON(csvfile, jsonfile):
     jsonfile.write(out)
 
 convertCSV2JSON('clean_happ2015.csv', 'clean_happ2015.json')
+convertCSV2JSON('clean_happ2016.csv', 'clean_happ2016.json')
