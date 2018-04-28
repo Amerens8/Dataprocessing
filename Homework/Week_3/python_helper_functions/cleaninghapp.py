@@ -1,10 +1,15 @@
+# cleaninghapp.py
+#
+# Amerens Jongsma
+#
+# specific function to clean up and select only necessary data from csv file
+# in the end the output only contains data of the Happiness score of
+# countries in Southeast Asia
+
 import csv
 import json
 import sys
 
-# function to clean up, select only necessary data from csv file
-# in the end only be left with the Happiness score and Country fields of countries
-# in Southeastern Asia
 
 def cleaninghapp(csvfile, clean_csvfile):
     data = []
@@ -31,5 +36,6 @@ def cleaninghapp(csvfile, clean_csvfile):
             writer.writerow(southeast_asia[x])
             x += 1
 
+#  this function was applied to the following two similar datasets
 cleaninghapp('happ2015.csv', 'clean_happ2015.csv')
 cleaninghapp('happ2016.csv', 'clean_happ2016.csv')
