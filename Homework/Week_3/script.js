@@ -43,7 +43,7 @@ body
   })
 
 // loading in the initial JSON dataset of 2015
-var value = '/datasets/clean_happ2015.json'
+var value = 'clean_happ2015.json'
 function updateData(value) {
   d3.json(value, function(data) {
 
@@ -72,7 +72,7 @@ function updateData(value) {
                 .attr("height", h + (2 * padding))
 
     var title;
-    if (value == "/datasets/clean_happ2016.json") {
+    if (value == "clean_happ2016.json") {
       title = '2016'
     }
     else {
