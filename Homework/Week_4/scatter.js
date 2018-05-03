@@ -47,8 +47,8 @@ axis_height = svg_height - margin.top - margin.bottom;
 
 window.onload = function() {
 
-  var data_unemploy15 = "http://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
-  var data_unemploy16 = "http://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
+  var data_unemploy15 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
+  var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
 
   d3.queue()
     .defer(d3.request, data_unemploy15)
@@ -107,14 +107,14 @@ function makeSVG(dictionary) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var xdomain = [ d3.min(dictionary, function(d){
-                  return d["native"]}),
+                  return d["native"] - 1}),
                   d3.max(dictionary, function(d){
-                  return d["native"]})]
+                  return d["native"] + 1})]
 
   var ydomain = [ d3.min(dictionary, function(d){
-                  return d["foreign"]}),
+                  return d["foreign"] -1}),
                   d3.max(dictionary, function(d){
-                  return d["foreign"]})]
+                  return d["foreign"] + 1})]
 
   var x_scaling = d3.scaleLinear()
     .domain(xdomain)
@@ -186,7 +186,8 @@ function addScattercircles (svg, dictionary, x_scaling, y_scaling) {
     .offset([-20, 0])
     .html(function(d, i) {
       return "<strong>Country: </strong> <div style='color:white' >" + dictionary[i].country + "</div>" +
-      "<strong>Foreign:</strong> <div style='color:white' >" + dictionary[i].foreign + "</div>";
+      "<strong>Foreign:</strong> <div style='color:white' >" + dictionary[i].foreign + "</div>" +
+      "<strong>Native:</strong> <div style='color:white' >" + dictionary[i].native + "</div>";
       })
   svg.call(tip);
 
@@ -209,7 +210,7 @@ function addScattercircles (svg, dictionary, x_scaling, y_scaling) {
     .attr("fill", function(d, i) {
       return "rgb(153, 35, " + 150*(d.foreign - d.native) + ")" // setting color to bars
     })
-    .attr("r", 10)
+    .attr("r", 5)
     .on("mouseover", tip.show) // showing tooltip bars
     .on("mouseout", tip.hide) // hiding tooltip bars
 
