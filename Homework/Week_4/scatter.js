@@ -1,7 +1,18 @@
+// scatter.js
+//
+// Amerens Jongsma (10735666)
+// Dataprocessing Minor Programmeren
+// script to make a scatter plot with API request
+
+// defining regularly-used variables globally
 var body = d3.select("body")
 var head = d3.select("head")
+
+// functions to run when window is initially loaded
 window.onload = function() {
   addHeaders();
+
+  // using 2015 as the initial dataset
   var selectedValue = '2015'
   updateData(selectedValue)
 }
@@ -45,6 +56,7 @@ function addHeaders() {
     var options = select
       .selectAll('option')
       .data(years)
+      .attr('class','dropdown')
       .enter()
       .append('option')
       .text(function (d) { return d; });
@@ -59,6 +71,7 @@ function addHeaders() {
       .text(" ")
   }
 
+// introduce, request and check for current dataset
 function updateData(selectedValue){
   var data_unemploy15 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
   var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
@@ -83,12 +96,12 @@ function updateData(selectedValue){
 
   d3.queue()
     .defer(d3.request, dataset)
-    .awaitAll(doFunction);
+    .awaitAll(collectData);
   }
 
 // function to load data into dictionary
-function doFunction(error, response) {
-  // emptyin possible previously made arrays
+function collectData(error, response) {
+  // emptying and/or initializing possible previously made arrays
   var foreign = []
   var native = []
   var countries = []
@@ -97,24 +110,26 @@ function doFunction(error, response) {
   // check for error when loading data
   if (error) throw error;
 
+  // storing json version of data
   data_json = JSON.parse(response[0].responseText)
 
-  // extract and put data from 2015 in arrays
+  // extract and put data from dataset in arrays
   for (let i = 0; i < 31 ; i++){
+
+    // storing countries in an array
     country_name = data_json.structure.dimensions.observation["0"].values[i].name
     if (country_name) {
       countries.push(country_name)
     }
 
-    // i represents a country in the code
+    // storing foreign borns data in array
     var country = i + ":" + "0:2:0:0";
     var foreign_data = data_json.dataSets[0].observations[country][0]
-
-    // foreign total unemployed array 2015
     if (foreign_data) {
       foreign.push(foreign_data)
     }
-    // repeat steps for native total unemployed array 2015
+
+    // storing native borns data in array
     var country = i + ":" + "1:2:0:0";
     var native_data = data_json.dataSets[0].observations[country][0]
     if (native_data) {
@@ -122,6 +137,7 @@ function doFunction(error, response) {
     }
   }
 
+  // combining previous arrays in a dictionary
   for (let i = 0; i < countries.length; i++){
     dictionary.push({
         "country": countries[i],
@@ -129,14 +145,16 @@ function doFunction(error, response) {
         "foreign": foreign[i],
     })
   }
+  // make a SVG element with the input from the previously made dictionary
   makeSVG(dictionary)
 }
 
 // function to create CVG block
 function makeSVG(dictionary) {
-  const margin = {top: 80, bottom: 80, right: 80, left: 80}
-  const svg_height = 600
-  const svg_width = 600
+  // initializing lengths and widths and margins
+  const margin = {top: 40, bottom: 40, right: 40, left: 60}
+  const svg_height = 650
+  const svg_width = 650
   axis_width = svg_width - margin.left - margin.right;
   axis_height = svg_height - margin.top - margin.bottom;
 
@@ -169,6 +187,7 @@ function makeSVG(dictionary) {
 
   // native x axis
   var x_axis = d3.axisBottom(x_scaling)
+
   // foreign y axis
   var y_axis = d3.axisLeft(y_scaling)
 
@@ -186,6 +205,7 @@ function makeSVG(dictionary) {
   // after svg is made, perform following fuctions to add labels and circles
   addLabels()
   addScatterCircles()
+  addLegend()
 
   function addLabels() {
     var scatterTitle = "Unemployment Rate"
@@ -197,9 +217,9 @@ function makeSVG(dictionary) {
       .attr("class", "plot")
       .attr("x", axis_width / 2 - margin.right)
       .attr("y", - (margin.top / 2))
-      .style("font-size", "16px")
-      .style("font-weight", "bold")
-      .style("text-decoration", "underline")
+      // .style("font-weight", "bold")
+      // .style("text-decoration", "underline")
+      .attr("fill", "#525252")
       .text(scatterTitle);
 
     // adding text labels to x axis
@@ -221,63 +241,116 @@ function makeSVG(dictionary) {
       .text(yLabel);
   }
 
-function addScatterCircles() {
 
-  // loading in circles with transition
-  svg.selectAll("circle")
-    .data(dictionary)
-    .enter()
-    .append("circle")
-    .attr("class", "circle")
-    .attr("cx", x_scaling(0))
-    .attr("cy", y_scaling(0))
-    .transition() // showing a transition from empty chart to bars showing up
-    .duration(1500)
-    .attr("cx", function(d) { return x_scaling(d.native)})
-    .attr("cy", function(d) { return y_scaling(d.foreign)})
+  function addScatterCircles() {
 
-  // adding colors and tooltips to circles
-  svg.selectAll("circle")
-    .data(dictionary)
-    .attr("fill", function(d, i) {
-      return "rgb(153, 35, " + 150*(d.foreign - d.native) + ")" // setting color to bars
-    })
-    .attr("r", 8)
-
-  // adding the tooltip bars
-  // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
-  var tip = d3.tip()
-    .attr("class", "d3-tip")
-    .offset([-20, 0])
-    .html(function(d, i) {
-      return "<strong>Country: </strong> <span style='color:white' >" + dictionary[i].country + "</span>" +
-      "<div><strong>Foreign:</strong> <span style='color:white' >" + dictionary[i].foreign + "</span></div>" +
-      "<div><strong>Native:</strong> <span style='color:white' >" + dictionary[i].native + "</span></div>";
-      })
-  svg.call(tip);
-
-  //
-  svg.selectAll("circle")
-    .on("mouseover", tip.show) // showing tooltip bars
-    .on("mouseout", tip.hide) // hiding tooltip bars
+    // loading in circles with transition
+    svg.selectAll("circle")
+      .data(dictionary)
+      .enter()
+      .append("circle")
+      .attr("class", "circle")
+      .attr("cx", x_scaling(0))
+      .attr("cy", y_scaling(0))
+      .transition() // showing a transition from empty chart to bars showing up
+      .duration(1500)
+      .attr("cx", function(d) { return x_scaling(d.native)})
+      .attr("cy", function(d) { return y_scaling(d.foreign)})
 
 
-  // adding a straight line, at which foreign and native Unemployment is equal
-  svg.append("line")
-    .attr("x1", 0)
-    .attr("y1", axis_height)
-    .attr("x2", axis_width)
-    .attr("y2", 0)
-    .attr("stroke-width", 2)
-    .attr("stroke", "black");
+    // determine color scale for circles
+    var colorDimensions = d3.scaleLinear()
+      .domain([d3.min(dictionary, function(d) {
+                return (d.foreign - d.native)}),
+              d3.max(dictionary, function(d) {
+                return (d.foreign - d.native)})
+              ])
+      .interpolate(d3.interpolateHcl)
+      .range([d3.rgb("#fde0dd"), d3.rgb("#7a0177")]);
+
+    // adding colors to circles depending on difference between foreign and native
+    svg.selectAll("circle")
+      .data(dictionary)
+      .attr("fill", function(d) {
+            return colorDimensions(d.foreign - d.native)
+          })
+      .style("opacity", 0.8)
+      .attr("r", 9)
+
+
+    // adding the tooltip bars
+    // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
+    var tip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([-20, 0])
+      .html(function(d, i) {
+        return "<strong>Country: </strong> <span style='color:white' >" + dictionary[i].country + "</span>" +
+        "<div><strong>Foreign:</strong> <span style='color:white' >" + dictionary[i].foreign + "</span></div>" +
+        "<div><strong>Native:</strong> <span style='color:white' >" + dictionary[i].native + "</span></div>";
+        })
+    svg.call(tip);
+
+    // adding tooltip bar and hiding it again
+    svg.selectAll("circle")
+      .on("mouseover", tip.show) // showing tooltip bars
+      .on("mouseout", tip.hide) // hiding tooltip bars
+
+    // adding a straight line, at which foreign and native Unemployment is equal
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("y1", axis_height)
+      .attr("x2", axis_width)
+      .attr("y2", 0)
+      .attr("stroke-width", 1.5)
+      .attr("stroke", "#969696");
 
     // source of the datasets
     body
       .append("p")
-      .text("Source: OECD.stat. Migration Statistics: Employment, Unemployment, Participation Rate by sex and place of birth")
+      .text("Source: OECD Migration Statistics: Employment, Unemployment, Participation Rate")
       .attr("class", "link")
       .on("click", function() {
          window.open("http://stats.oecd.org/")
       })
     }
+
+  function addLegend() {
+    // create color density object for legend
+    legendColors = ["#fde0dd", "7a0177"];
+
+    // adding legend with two color schemes
+    svg.selectAll("legend")
+        .data(legendColors)
+        .enter()
+        .append("rect")
+        .attr("class", "legend")
+        .attr("x", axis_width)
+        .attr("y", function(d, i){
+            return 250 - (i * 30);
+        })
+        .attr("width", 20)
+        .attr("height", 20)
+        .style("fill", function(d){
+              return d })
+        .style("opacity", 0.8);
+
+    // adding text to legend
+    svg.append("text")
+        .attr("font-size", "10px")
+        .attr("font-family", "georgia")
+        .attr("x", axis_width - 8)
+        .attr("y", 230)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text("Large foreign/native difference");
+
+    svg.append("text")
+        .attr("font-size", "10px")
+        .attr("font-family", "georgia")
+        .attr("x", axis_width - 8)
+        .attr("y", 260)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text("Small foreign/native difference");
+      }
 }
