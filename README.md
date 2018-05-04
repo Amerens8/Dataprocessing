@@ -1,8 +1,11 @@
 # Dataprocessing
 ## Amerens Jongsma 10735666
-## Homework assignments
+### Homework assignments
 [Click this link to view my homework assignments](https://Amerens8.github.io/Dataprocessing
 )
 
-### Week 4:
+#### Week 4:
 https://Amerens8.github.io/Dataprocessing/Homework/Week_4/
+
+### Video US Mass Shooting Week 4 
+https://www.youtube.com/watch?v=XDFX9uthkG4&feature=youtu.be
