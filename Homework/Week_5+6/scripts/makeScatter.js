@@ -1,38 +1,11 @@
-// linkedviews.js
-//
-// Amerens Jongsma (10735666)
-// Dataprocessing Minor Programmeren
-
-// defining regularly-used variables globally
-var body = d3.select("body")
-var head = d3.select("head")
-
-// functions to run when window is initially loaded
-window.onload = function() {
-
-    //
-    // var dataset = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
-    // var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
-    makeMapAndChart()
-    // d3.queue()
-    //   .defer(d3.request, dataset)
-    //   .defer(d3.request, data_unemploy16)
-    //   .awaitAll(makeMapAndChart);
-  }
-
-
-// done function to run function that make map and bar chart
-function makeMapAndChart() {
-    makeWorldMap()
-    makeBarChart()
-}
-
-function makeBarChart() {
+function makeScatter() {
   updateData()
+
   function updateData(){
     var data_unemploy15 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
     var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
     selectedValue = '2015'
+    var dataset;
     if ('2015' == selectedValue) {
       dataset = data_unemploy15
     }
@@ -51,14 +24,15 @@ function makeBarChart() {
     //   .select("p")
     //   .remove()
 
-// var q = d3_queue.queue();
+    // var q = d3_queue.queue();
       // gebruik d3.json als je json files laadt
+      console.log(dataset);
     queue()
-      .defer(d3.request, dataset)
+      .defer(d4.request, dataset)
       .await(collectData);
     }
 
-// function to load data into dictionary
+    // function to load data into dictionary
   function collectData(error, response) {
     // emptying and/or initializing possible previously made arrays
     var foreign = []
@@ -69,8 +43,9 @@ function makeBarChart() {
     // check for error when loading data
     if (error) throw error;
 
+    console.log(response);
     // storing json version of data
-    data_json = JSON.parse(response[0].responseText)
+    data_json = JSON.parse(response.responseText)
 
     // extract and put data from dataset in arrays
     for (let i = 0; i < 31 ; i++){
@@ -108,7 +83,7 @@ function makeBarChart() {
     makeSVG(dictionary)
   }
 
-// function to create CVG block
+  // function to create CVG block
   function makeSVG(dictionary) {
     // initializing lengths and widths and margins
     const margin = {top: 40, bottom: 40, right: 40, left: 60}
@@ -118,7 +93,7 @@ function makeBarChart() {
     axis_height = svg_height - margin.top - margin.bottom;
 
     // create SVG element
-    var svg = body
+    var svg = d4.select("body")
           .append("svg")
           .attr("width", svg_width)
           .attr("height", svg_height)
@@ -128,27 +103,27 @@ function makeBarChart() {
     // domains started at 0 and end at same value on purpose, to have an equal x_scaling
     // and be able to clearly see where foreign and native Unemployment rates are equal
     var xdomain = [ 0,
-                    d3.max(dictionary, function(d){
+                    d4.max(dictionary, function(d){
                     return d.foreign + 1})]
 
     var ydomain = [ 0,
-                    d3.max(dictionary, function(d){
+                    d4.max(dictionary, function(d){
                     return d.foreign + 1})]
 
     // linear scaling for determining axis.
-    var x_scaling = d3.scaleLinear()
+    var x_scaling = d4.scaleLinear()
       .domain(xdomain)
       .range([0, axis_width]);
 
-    var y_scaling = d3.scaleLinear()
+    var y_scaling = d4.scaleLinear()
       .domain(ydomain)
       .range([axis_height, 0]);
 
     // native x axis
-    var x_axis = d3.axisBottom(x_scaling)
+    var x_axis = d4.axisBottom(x_scaling)
 
     // foreign y axis
-    var y_axis = d3.axisLeft(y_scaling)
+    var y_axis = d4.axisLeft(y_scaling)
 
     // adding the x-axis
     svg.append("g")
@@ -176,8 +151,7 @@ function makeBarChart() {
         .attr("class", "plot")
         .attr("x", axis_width / 2 - margin.right)
         .attr("y", - (margin.top / 2))
-        // .style("font-weight", "bold")
-        // .style("text-decoration", "underline")
+
         .attr("fill", "#525252")
         .text(scatterTitle);
 
@@ -218,14 +192,14 @@ function makeBarChart() {
 
 
       // determine color scale for circles
-      var colorDimensions = d3.scaleLinear()
+      var colorDimensions = d4.scaleLinear()
         .domain([d3.min(dictionary, function(d) {
                   return (d.foreign - d.native)}),
                 d3.max(dictionary, function(d) {
                   return (d.foreign - d.native)})
                 ])
-        .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#fde0dd"), d3.rgb("#7a0177")]);
+        .interpolate(d4.interpolateHcl)
+        .range([d4.rgb("#fde0dd"), d3.rgb("#7a0177")]);
 
       // adding colors to circles depending on difference between foreign and native
       svg.selectAll("circle")
@@ -266,10 +240,10 @@ function makeBarChart() {
       // source of the datasets
       body
         .append("p")
-        .text("Source: OECD Migration Statistics: Employment, Unemployment, Participation Rate")
+        .text("Source: OECD Better Life Index")
         .attr("class", "link")
         .on("click", function() {
-           window.open("http://stats.oecd.org/")
+           window.open("http://stats.oecd.org/Index.aspx?DataSetCode=BLI#")
         })
       }
 
@@ -312,19 +286,5 @@ function makeBarChart() {
           .style("text-anchor", "end")
           .text("Small foreign/native difference");
         }
-  }
 }
-
-
-function  makeWorldMap() {
-  var map = new Datamap(
-    {
-      element: document.getElementById('container'),
-
-    // changing the color of the map
-      fills: {
-        defaultFill: 'pink' // Any hex, color name or rgb/rgba value
-      }
-    });
-
-} // end of makeWorldMap
+}

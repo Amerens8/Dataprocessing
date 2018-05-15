@@ -20,6 +20,5 @@ def convertCSV2JSON(csvfile, jsonfile):
     jsonfile = open(jsonfile, 'w')
     jsonfile.write(out)
 
-#  this function was applied twice to the following csv files 
-convertCSV2JSON('clean_happ2015.csv', 'clean_happ2015.json')
-convertCSV2JSON('clean_happ2016.csv', 'clean_happ2016.json')
+#  this function was applied to the following csv files
+convertCSV2JSON('clean_BLIsatisf17.csv', 'clean_BLIsatisf17.json')
