@@ -1,7 +1,8 @@
 /* Stylesheet (Amerens Jongsma) linkedviewsplot, linkedviews.js, linkedviews.html */
 body {
-  background: #e6f2ff;
+  background: white;
   font-family: verdana;
+  /* #e6f2ff */
 }
 
 h1 {

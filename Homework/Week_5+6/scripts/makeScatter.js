@@ -26,7 +26,6 @@ function makeScatter() {
 
     // var q = d3_queue.queue();
       // gebruik d3.json als je json files laadt
-      console.log(dataset);
     queue()
       .defer(d4.request, dataset)
       .await(collectData);
@@ -221,10 +220,10 @@ function makeScatter() {
           "<div><strong>Foreign:</strong> <span style='color:white' >" + dictionary[i].foreign + "</span></div>" +
           "<div><strong>Native:</strong> <span style='color:white' >" + dictionary[i].native + "</span></div>";
           })
-      svg.call(tip);
+      d3.selectAll("svg").call(tip);
 
       // adding tooltip bar and hiding it again
-      svg.selectAll("circle")
+      d3.selectAll("svg").selectAll("circle")
         .on("mouseover", tip.show) // showing tooltip bars
         .on("mouseout", tip.hide) // hiding tooltip bars
 
