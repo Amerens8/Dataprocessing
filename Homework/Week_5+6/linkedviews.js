@@ -5,12 +5,10 @@
 
 // defining regularly-used variables globally
 var body = d3.select("body")
-var head = d3.select("head")
+var head = d4.select("head")
 
 // functions to run when window is initially loaded
 window.onload = function() {
-
-    //
     // var dataset = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
     // var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
     makeMapAndChart()
@@ -20,19 +18,167 @@ window.onload = function() {
     //   .awaitAll(makeMapAndChart);
   }
 
-
 // done function to run function that make map and bar chart
 function makeMapAndChart() {
+
+    // makeBarChart()
+    makeScatter()
     makeWorldMap()
-    makeBarChart()
 }
 
 function makeBarChart() {
+  var value = 'clean_happ2015.json'
+  updateData(value)
+  function updateData(value) {
+    d3.json(value, function(data) {
+
+      // setting constants and initializing global variables
+      const w = 480;            // setting width of the svg element
+      const h = 300;            // setting hight of the svg element
+      const barPadding = 1;     // barpadding for space between the bars
+      const padding = 100;      // padding to create space in the bottom left corner
+      const xLabel = "Country"; // label for x axis
+      const yLabel = "Happiness score"; // label for y axis
+      var countries = []        // empty array to store country names in later on
+      var scores = []           // empty array to store happiness scores from data
+
+      // removing/closing previous svg in case of change of dataset clicked
+      d3.select("svg").remove();
+
+      // saving the countries and happinness scores of the dataset in seperate arrays
+      for (var i = 0; i < data.length; i++){
+        countries.push(data[i]["Country"])
+        scores.push(Number(Number(data[i]["Happiness Score"]).toFixed(2)))
+      }
+
+      // creating an svg block element
+      var svg = body.append("svg")
+                  .attr("width", w + (2 * padding))
+                  .attr("height", h + (2 * padding))
+
+      var title;
+      if (value == "clean_happ2016.json") {
+        title = '2016'
+      }
+      else {
+        title = '2015'
+      }
+
+      // adding a TITLE to the bar chart
+      svg.append("text")
+        .attr("x", (w / 2))
+        .attr("y", (padding / 2))
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .style("font-family", "sans-serif")
+        .style("text-decoration", "underline")
+        .text("Southeast Asia" + ', ' + title );
+
+      // set the ranges and correct scaling of x and y axis
+      var x = d3.scale.linear()
+        .domain([0, countries.length])
+        .range([0, w])
+      var y = d3.scale.linear()
+        .domain([0, d3.max(scores)])
+        .range([h, 0])
+
+      // define the x and y axis and scale accordingly
+      var xAxis = d3.svg.axis().scale(x)
+          .orient("bottom")
+          .ticks(countries.length)
+          .tickFormat(function(d, i){
+            return countries[i]
+          })
+
+      var yAxis = d3.svg.axis().scale(y)
+          .orient("left")
+          .ticks(scores.length)
+
+      // adding the x axis to the svg block on the correct position
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(" + padding + "," + (h  + padding + barPadding ) + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "end" )
+        .attr("dx", "0.8em")
+        .attr("dy", "1.70em")
+        .attr("transform", "rotate(-45)")
+
+      // adding text labels to x axis
+      svg.append("text")
+        .attr("class", "axistext")
+        .attr("x", w + padding + 43)
+        .attr("y", h + padding + 7)
+        .attr("text-anchor", "end")
+        .attr("text-alignment", "hanging")
+        .text(xLabel);
+
+      // adding the y axis
+      svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + padding + "," + padding + ")")
+        .call(yAxis)
+
+      // adding text labels to y axis
+      svg.append("text")
+        .attr("class", "axistext")
+        .attr("x", 82)
+        .attr("y", padding + 15)
+        .attr("text-anchor", "end")
+        .attr("text-alignment", "hanging")
+        .text(yLabel);
+
+      // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
+      var tip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-20, 0])
+        .html(function(d, i) {
+          return "<strong>Score:</strong> <span style='color:white' >" + scores[i] + "</span>";
+          })
+      svg.call(tip);
+
+      // connecting the data to rect elements in svg
+      svg.selectAll("rect")
+        .data(scores)
+        .enter()
+        .append("rect")
+        .attr("class", "rect")
+        .attr('width', 0)
+        .attr('height', 0)
+        .attr('y', h)
+        .attr("fill", function(d, i) {
+          return "rgb(153, 35, " + (i * 30) + ")" // setting color to bars
+        })
+        .on("mouseover", tip.show) // showing tooltip bars
+        .on("mouseout", tip.hide) // hiding tooltip bars
+        .transition() // showing a transition from empty chart to bars showing up
+        .duration(1500)
+        .attr("x", function(d, i) {
+            return padding + i * ((w - barPadding) / data.length)
+        })
+        .attr("width", w / data.length - barPadding)  // defining width of each bar
+        .attr("y", function(d) {
+          return padding + y(d)  // data value used as y value
+        })
+        .attr("height", function(d) {
+          return h - y(d)  // height of chart minus data value
+        })
+
+    });
+
+  }
+}
+
+
+function makeScatter() {
   updateData()
+
   function updateData(){
     var data_unemploy15 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2015&endTime=2015&dimensionAtObservation=allDimensions"
     var data_unemploy16 = "https://stats.oecd.org/SDMX-JSON/data/MIG_NUP_RATES_GENDER/AUS+AUT+BEL+CAN+CHL+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+EU28+OECD.FB+NB.MEN+WMN+TOT.U_RATE+P_RATE/all?startTime=2016&endTime=2016&dimensionAtObservation=allDimensions"
     selectedValue = '2015'
+    var dataset;
     if ('2015' == selectedValue) {
       dataset = data_unemploy15
     }
@@ -51,14 +197,15 @@ function makeBarChart() {
     //   .select("p")
     //   .remove()
 
-// var q = d3_queue.queue();
+    // var q = d3_queue.queue();
       // gebruik d3.json als je json files laadt
+      console.log(dataset);
     queue()
-      .defer(d3.request, dataset)
+      .defer(d4.request, dataset)
       .await(collectData);
     }
 
-// function to load data into dictionary
+    // function to load data into dictionary
   function collectData(error, response) {
     // emptying and/or initializing possible previously made arrays
     var foreign = []
@@ -69,8 +216,9 @@ function makeBarChart() {
     // check for error when loading data
     if (error) throw error;
 
+    console.log(response);
     // storing json version of data
-    data_json = JSON.parse(response[0].responseText)
+    data_json = JSON.parse(response.responseText)
 
     // extract and put data from dataset in arrays
     for (let i = 0; i < 31 ; i++){
@@ -108,7 +256,7 @@ function makeBarChart() {
     makeSVG(dictionary)
   }
 
-// function to create CVG block
+  // function to create CVG block
   function makeSVG(dictionary) {
     // initializing lengths and widths and margins
     const margin = {top: 40, bottom: 40, right: 40, left: 60}
@@ -118,7 +266,7 @@ function makeBarChart() {
     axis_height = svg_height - margin.top - margin.bottom;
 
     // create SVG element
-    var svg = body
+    var svg = d4.select("body")
           .append("svg")
           .attr("width", svg_width)
           .attr("height", svg_height)
@@ -128,27 +276,27 @@ function makeBarChart() {
     // domains started at 0 and end at same value on purpose, to have an equal x_scaling
     // and be able to clearly see where foreign and native Unemployment rates are equal
     var xdomain = [ 0,
-                    d3.max(dictionary, function(d){
+                    d4.max(dictionary, function(d){
                     return d.foreign + 1})]
 
     var ydomain = [ 0,
-                    d3.max(dictionary, function(d){
+                    d4.max(dictionary, function(d){
                     return d.foreign + 1})]
 
     // linear scaling for determining axis.
-    var x_scaling = d3.scaleLinear()
+    var x_scaling = d4.scaleLinear()
       .domain(xdomain)
       .range([0, axis_width]);
 
-    var y_scaling = d3.scaleLinear()
+    var y_scaling = d4.scaleLinear()
       .domain(ydomain)
       .range([axis_height, 0]);
 
     // native x axis
-    var x_axis = d3.axisBottom(x_scaling)
+    var x_axis = d4.axisBottom(x_scaling)
 
     // foreign y axis
-    var y_axis = d3.axisLeft(y_scaling)
+    var y_axis = d4.axisLeft(y_scaling)
 
     // adding the x-axis
     svg.append("g")
@@ -218,14 +366,14 @@ function makeBarChart() {
 
 
       // determine color scale for circles
-      var colorDimensions = d3.scaleLinear()
+      var colorDimensions = d4.scaleLinear()
         .domain([d3.min(dictionary, function(d) {
                   return (d.foreign - d.native)}),
                 d3.max(dictionary, function(d) {
                   return (d.foreign - d.native)})
                 ])
-        .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#fde0dd"), d3.rgb("#7a0177")]);
+        .interpolate(d4.interpolateHcl)
+        .range([d4.rgb("#fde0dd"), d3.rgb("#7a0177")]);
 
       // adding colors to circles depending on difference between foreign and native
       svg.selectAll("circle")
@@ -312,7 +460,7 @@ function makeBarChart() {
           .style("text-anchor", "end")
           .text("Small foreign/native difference");
         }
-  }
+}
 }
 
 
