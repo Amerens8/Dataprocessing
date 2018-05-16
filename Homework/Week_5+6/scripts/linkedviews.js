@@ -23,26 +23,17 @@ function makeMapAndChart(error, response) {
   // check for error when loading data
   if (error) throw error;
 
-  map_data = response[0]
-  bar_data = response[1]
+  map_data = response[0];
+  bar_data = response[1];
 
-  makeWorldMap(map_data)
+  makeWorldMap(map_data, bar_data)
+  
 
+  current_country_data = bar_data[5]
+  updateBarData(bar_data[5], bar_data)
+  // console.log(current_country_data)
 
-  var clicked_country = 'NLD'
-  var current_country_data
-  for (var i = 0; i < bar_data.length; i++){
-    if (bar_data[i].code == clicked_country) {
-      current_country_data = bar_data[i]
-      break;
-    }
-    else {
-      current_country_data = bar_data[0]
-    }
-  }
-  console.log(current_country_data)
-
-  makeBarChart(current_country_data)
+  // makeBarChart(current_country_data)
 
 
 }

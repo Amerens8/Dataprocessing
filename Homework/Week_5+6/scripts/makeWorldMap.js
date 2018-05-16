@@ -1,6 +1,5 @@
-function  makeWorldMap(data_json) {
+function  makeWorldMap(map_data, bar_data) {
 
-  // console.log(data_json)
   var scores = []
   var codes = []
   var countries = []
@@ -9,18 +8,18 @@ function  makeWorldMap(data_json) {
   for (let i = 0; i < 38 ; i++){
 
     // storing country codes in an array
-    country_name = data_json[i].code
+    country_name = map_data[i].code
     if (country_name) {
       codes.push(country_name)
     }
     // storing countries in an array
-    country_name = data_json[i].country
+    country_name = map_data[i].country
     if (country_name) {
       countries.push(country_name)
     }
 
     // storing country codes in an array
-    country_name = data_json[i].score
+    country_name = map_data[i].score
     if (country_name) {
       scores.push(country_name)
     }
@@ -68,16 +67,20 @@ function  makeWorldMap(data_json) {
   }
   // console.log(dataset)
 
+  var fills = {
+    someOtherFill: '#ff0000',
+    defaultFill: '#F5F5F5'
+  };
+// '#00ff00'
 
   var map = new Datamap(
     {
       element: document.getElementById('container'),
       projection: 'mercator', // big world map
 
-      // countries don't listed in dataset will be painted with this color
-      fills: { defaultFill: '#F5F5F5' },
+      // countries don't listed in dataset will be painted with default color
+      fills: fills,
       data: dataset,
-
       geographyConfig: {
         borderColor: '#DEDEDE',
         highlightBorderWidth: 2,
@@ -97,15 +100,25 @@ function  makeWorldMap(data_json) {
                 '<br>Life Satisfaction: <strong>', data.numberOfThings, '</strong>',
                 '</div>'].join('');
             }
-          }
-          // click: function (d) {
-          //
-          // }
-
-
-
-  });
-
-
+          },
+        // source: https://bl.ocks.org/briwa/60024d70a5aee921d5910828fe8115be
+        done: function(datamap) {
+          datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+            var clicked_country = geography.id;
+            var fillkey_obj = datamap.options.data[clicked_country] || {fillKey: 'defaultFill'};
+            var fillkey = fillkey_obj.fillKey;;
+            var fillkeys = Object.keys(fills);
+            var antikey = fillkeys[Math.abs(fillkeys.indexOf(fillkey) - 1)];
+            var new_fills = {
+              [geography.id] : {
+                fillKey: antikey
+              }
+            };
+            datamap.updateChoropleth(new_fills);
+            updateBarData(clicked_country, bar_data);
+            
+        });
+      }
+  })
 
 }

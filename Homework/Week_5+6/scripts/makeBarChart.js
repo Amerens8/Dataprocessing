@@ -1,4 +1,7 @@
-function makeBarChart(current_country_data) {
+function makeBarChart(current_country_data, scores) {
+
+  // removing/closing previous svg in case of change of dataset clicked
+  d4.selectAll("rect").remove();
 
   // setting constants and initializing global variables
   const margin = {top: 200, bottom: 200, right: 200, left: 200}
@@ -6,30 +9,11 @@ function makeBarChart(current_country_data) {
   const svg_width = 888
   axis_width = svg_width - margin.left - margin.right;
   axis_height = svg_height - margin.top - margin.bottom;
-
   const barPadding = 1;     // barpadding for space between the bars
 
   const xLabel = ""; // label for x axis
   const yLabel = "Percentage"; // label for y axis
-  var code = current_country_data.code       // empty array to store country names in later on
-  var country = current_country_data.country         // empty array to store happiness scores from data
-  var safe = Number(Number(current_country_data.safe).toFixed(2))
-  var employment = Number(Number(current_country_data.employment).toFixed(2))
-  var education = Number(Number(current_country_data.education).toFixed(2))
-  var water = Number(Number(current_country_data.water).toFixed(2))
-  var voter = Number(Number(current_country_data.voter).toFixed(2))
-  var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
-  var scores = [safe, employment, education, water, voter, long_hours]
-  console.log(scores)
 
-  // removing/closing previous svg in case of change of dataset clicked
-  // d4.select("svg").remove();
-
-  // saving the countries and happiness scores of the dataset in seperate arrays
-  // for (var i = 0; i < 38; i++){
-  //   countries.push(current_country_data[i].country)
-  //   scores.push(Number(Number(current_country_data[i]["safe"]).toFixed(2)))
-  // }
 
 
   var svg = body
@@ -43,7 +27,7 @@ function makeBarChart(current_country_data) {
 
   // adding a TITLE to the bar chart
   svg.append("text")
-    .attr("x", 0)
+    .attr("x", margin.left / 4)
     .attr("y", - margin.top / 4)
     .attr("class", "plot")
     .attr("fill", "#525252")
