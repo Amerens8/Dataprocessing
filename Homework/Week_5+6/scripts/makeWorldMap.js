@@ -24,10 +24,7 @@ function  makeWorldMap(map_data, bar_data) {
       scores.push(country_name)
     }
   }
-  //
-  // console.log(countries)
-  // console.log(codes)
-  // console.log(scores)
+
 
   // combining previous arrays in a dictionary
   for (let i = 0; i < countries.length; i++){
@@ -58,14 +55,12 @@ function  makeWorldMap(map_data, bar_data) {
           .domain([minValue,maxValue])
           .range(["#EFEFFF","#02386F"]); // blue color
 
-  // console.log(dictionary)
   // fill dataset in appropriate format
   for (let i = 0; i < dictionary.length; i++){
     var iso = dictionary[i].code
     var value = dictionary[i].score
     dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value)}
   }
-  // console.log(dataset)
 
   var fills = {
     someOtherFill: '#ff0000',
@@ -116,7 +111,7 @@ function  makeWorldMap(map_data, bar_data) {
             };
             datamap.updateChoropleth(new_fills);
             updateBarData(clicked_country, bar_data);
-            
+
         });
       }
   })
