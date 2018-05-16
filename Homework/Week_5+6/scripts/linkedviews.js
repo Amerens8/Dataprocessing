@@ -21,8 +21,10 @@ window.onload = function() {
 function makeMapAndChart(error, response) {
   // check for error when loading data
   if (error) throw error;
-  console.log(response)
-    makeWorldMap()
+  data_json = response
+
+
+    makeWorldMap(data_json)
     makeBarChart()
     makeScatter()
 

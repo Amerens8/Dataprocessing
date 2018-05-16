@@ -1,4 +1,4 @@
-﻿LOCATION,Country,Value
+code,country,score
 AUS,Australia,7.3
 AUT,Austria,7
 BEL,Belgium,6.9
@@ -37,4 +37,3 @@ LVA,Latvia,5.9
 RUS,Russia,6
 SVN,Slovenia,5.8
 ZAF,South Africa,4.8
-OECD,OECD - Total,6.5

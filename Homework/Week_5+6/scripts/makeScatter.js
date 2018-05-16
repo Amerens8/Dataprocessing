@@ -42,10 +42,10 @@ function makeScatter() {
     // check for error when loading data
     if (error) throw error;
 
-    console.log(response);
+
     // storing json version of data
     data_json = JSON.parse(response.responseText)
-
+    // console.log(data_json);
     // extract and put data from dataset in arrays
     for (let i = 0; i < 31 ; i++){
 
