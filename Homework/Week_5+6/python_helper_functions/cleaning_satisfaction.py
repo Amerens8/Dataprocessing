@@ -1,10 +1,9 @@
-# cleaninghapp.py
+# cleaning_satisfaction.py
 #
 # Amerens Jongsma
 #
 # specific function to clean up and select only necessary data from csv file
-# in the end the output only contains data of the Happiness score of
-# countries in Southeast Asia
+
 
 import csv
 import json
