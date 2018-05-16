@@ -21,14 +21,13 @@ window.onload = function() {
 function makeMapAndChart(error, response) {
   // check for error when loading data
   if (error) throw error;
+
   map_data = response[0]
   bar_data = response[1]
-  console.log(map_data)
-  console.log(bar_data)
 
-    makeWorldMap(map_data)
-    makeBarChart(bar_data)
-    // makeScatter()
+  makeWorldMap(map_data)
+  makeBarChart(bar_data)
+
 
 
 }

@@ -1,6 +1,7 @@
 
 function  makeWorldMap(data_json) {
 
+  console.log(data_json)
   var scores = []
   var codes = []
   var countries = []
@@ -9,18 +10,18 @@ function  makeWorldMap(data_json) {
   for (let i = 0; i < 38 ; i++){
 
     // storing country codes in an array
-    country_name = data_json["0"][i].code
+    country_name = data_json[i].code
     if (country_name) {
       codes.push(country_name)
     }
     // storing countries in an array
-    country_name = data_json["0"][i].country
+    country_name = data_json[i].country
     if (country_name) {
       countries.push(country_name)
     }
 
     // storing country codes in an array
-    country_name = data_json["0"][i].score
+    country_name = data_json[i].score
     if (country_name) {
       scores.push(country_name)
     }
@@ -66,7 +67,7 @@ function  makeWorldMap(data_json) {
     var value = dictionary[i].score
     dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value)}
   }
-  console.log(dataset)
+  // console.log(dataset)
 
 
   var map = new Datamap(

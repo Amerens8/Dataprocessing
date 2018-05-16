@@ -1,13 +1,16 @@
-function makeBarChart() {
-  var value = '/datasets/clean_BLIindicators17.json'
-  console.log(value)
+function makeBarChart(bar_data) {
+
+  var value = bar_data
+  console.log(value[1].country)
+
   updateData(value)
   function updateData(value) {
     d4.json(value, function(data) {
+      console.log(data)
 
       // setting constants and initializing global variables
-      const svg_width = 480;            // setting width of the svg element
-      const svg_height = 300;            // setting hight of the svg element
+      const svg_width = 600;            // setting width of the svg element
+      const svg_height = 400;            // setting hight of the svg element
       const barPadding = 1;     // barpadding for space between the bars
       const padding = 100;      // padding to create space in the bottom left corner
       const xLabel = "Country"; // label for x axis
@@ -19,23 +22,19 @@ function makeBarChart() {
       // d4.select("svg").remove();
 
       // saving the countries and happiness scores of the dataset in seperate arrays
-      for (var i = 0; i < data.length; i++){
-        countries.push(data[i]["Country"])
-        scores.push(Number(Number(data[i]["Happiness Score"]).toFixed(2)))
+      for (var i = 0; i < 38; i++){
+        countries.push(value[i].country)
+        scores.push(Number(Number(value[i]["safe"]).toFixed(2)))
       }
-
+      console.log(countries.length)
+      console.log(scores)
       // creating an svg block element
       var svg = body.append("svg")
                   .attr("width", svg_width + (2 * padding))
                   .attr("height", svg_height + (2 * padding))
 
       var title;
-      if (value == "clean_happ2016.json") {
-        title = '2016'
-      }
-      else {
-        title = 'a country'
-      }
+      title = 'a country'
 
       // adding a TITLE to the bar chart
       svg.append("text")
@@ -47,23 +46,23 @@ function makeBarChart() {
 
       // set the ranges and correct scaling of x and y axis
       var x = d3.scale.linear()
-        .domain([0, countries.length])
+        .domain([0, scores.length])
         .range([0, svg_width])
       var y = d3.scale.linear()
-        .domain([0, d3.max(scores)])
+        .domain([0, 100])
         .range([svg_height, 0])
 
       // define the x and y axis and scale accordingly
       var xAxis = d3.svg.axis().scale(x)
           .orient("bottom")
-          .ticks(countries.length)
+          .ticks(6)
           .tickFormat(function(d, i){
-            return countries[i]
+            return scores[i]
           })
 
       var yAxis = d3.svg.axis().scale(y)
           .orient("left")
-          .ticks(scores.length)
+          .ticks(10)
 
       // adding the x axis to the svg block on the correct position
       svg.append("g")
