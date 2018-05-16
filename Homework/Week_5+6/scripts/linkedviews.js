@@ -19,6 +19,7 @@ window.onload = function() {
 
 // done function to run function that make map and bar chart
 function makeMapAndChart(error, response) {
+
   // check for error when loading data
   if (error) throw error;
 
@@ -26,8 +27,22 @@ function makeMapAndChart(error, response) {
   bar_data = response[1]
 
   makeWorldMap(map_data)
-  makeBarChart(bar_data)
 
+
+  var clicked_country = 'NLD'
+  var current_country_data
+  for (var i = 0; i < bar_data.length; i++){
+    if (bar_data[i].code == clicked_country) {
+      current_country_data = bar_data[i]
+      break;
+    }
+    else {
+      current_country_data = bar_data[0]
+    }
+  }
+  console.log(current_country_data)
+
+  makeBarChart(current_country_data)
 
 
 }

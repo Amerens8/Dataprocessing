@@ -1,7 +1,6 @@
-
 function  makeWorldMap(data_json) {
 
-  console.log(data_json)
+  // console.log(data_json)
   var scores = []
   var codes = []
   var countries = []
@@ -99,7 +98,9 @@ function  makeWorldMap(data_json) {
                 '</div>'].join('');
             }
           }
-
+          // click: function (d) {
+          //
+          // }
 
 
 
