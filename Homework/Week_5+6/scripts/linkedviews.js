@@ -27,13 +27,8 @@ function makeMapAndChart(error, response) {
   bar_data = response[1];
 
   makeWorldMap(map_data, bar_data)
-  
-
   current_country_data = bar_data[5]
-  updateBarData(bar_data[5], bar_data)
-  // console.log(current_country_data)
-
-  // makeBarChart(current_country_data)
+  updateBarData(current_country_data, bar_data)
 
 
 }

@@ -26,6 +26,6 @@ function updateBarData(clicked_country, bar_data) {
       var scores = [safe, employment, education, water, voter, long_hours]
     }
   }
-  console.log(scores)
+
   makeBarChart(current_country_data, scores)
 }

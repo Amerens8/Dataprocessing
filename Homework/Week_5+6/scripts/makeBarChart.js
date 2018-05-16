@@ -1,7 +1,7 @@
 function makeBarChart(current_country_data, scores) {
 
-  // removing/closing previous svg in case of change of dataset clicked
-  d4.selectAll("rect").remove();
+  // removing/closing previous svg in case another country is clicked
+  d4.select('#barchart').remove();
 
   // setting constants and initializing global variables
   const margin = {top: 200, bottom: 200, right: 200, left: 200}
@@ -14,10 +14,9 @@ function makeBarChart(current_country_data, scores) {
   const xLabel = ""; // label for x axis
   const yLabel = "Percentage"; // label for y axis
 
-
-
   var svg = body
         .append("svg")
+        .attr("id", "barchart")
         .attr("width", svg_width)
         .attr("height", svg_height)
         .append("g")
@@ -50,6 +49,8 @@ function makeBarChart(current_country_data, scores) {
         return x_axis_labels[i]
       })
 
+
+
   var yAxis = d3.svg.axis().scale(y_scaling)
       .orient("left")
       .ticks(10)
@@ -79,14 +80,25 @@ function makeBarChart(current_country_data, scores) {
     .attr("class", "y axis")
     .call(yAxis)
 
-  // adding text labels to y axis
-  svg.append("text")
-    .attr("class", "axistext")
-    .attr("x", 82)
-    .attr("y", margin.left + 15)
-    .attr("text-anchor", "end")
-    .attr("text-alignment", "hanging")
-    .text(yLabel);
+  // // adding text labels to y axis
+  // svg.append("text")
+  //   .attr("class", "axistext")
+  //   .attr("x", 82)
+  //   .attr("y", margin.left + 15)
+  //   .attr("text-anchor", "end")
+  //   .attr("text-alignment", "hanging")
+  //   .text(yLabel);
+
+    svg.append("text")
+      .attr("class", "axistext")
+      .attr("transform", "rotate(-90)")
+      .attr("x", - (svg_height - axis_height - margin.top - margin.bottom))
+      .attr("y", 10)
+      .attr("dy", "1em")
+      .attr("text-anchor", "end")
+      .text(yLabel);
+  
+
 
   // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
   var tip = d3.tip()
