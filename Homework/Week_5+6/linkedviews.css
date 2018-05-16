@@ -39,14 +39,16 @@ p {
     fill: pink;
     stroke: pink;
     shape-rendering: crispEdges;
+
 }
 
-.axistext{
+
+.axis {
+
   font-family: verdana;
-  font-size: 10px;
+  font-size: 9px;
   align-content: center;
 }
-
 
 /* tooltip styles source: http://bl.ocks.org/Caged/6476579   */
 .d3-tip {
@@ -79,17 +81,10 @@ p {
   left: 0;
 }
 
-circle{
-  stroke: #969696;
-}
-circle:hover{
-  fill: pink;
-  stroke: #969696;
-}
-
+/* title  of bar chart */
 .plot{
   font-family: verdana;
-  font-size: 22px;
+  font-size: 15px;
   text-decoration: underline;
 
 }

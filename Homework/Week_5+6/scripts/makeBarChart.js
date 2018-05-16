@@ -1,12 +1,12 @@
 function makeBarChart(current_country_data, scores) {
 
-  // removing/closing previous svg in case another country is clicked
+  // removing/closing previous svg bar chart in case another country is clicked
   d4.select('#barchart').remove();
 
   // setting constants and initializing global variables
-  const margin = {top: 200, bottom: 200, right: 200, left: 200}
-  const svg_height = 888
-  const svg_width = 888
+  const margin = {top: 50, bottom: 80, right: 50, left: 50}
+  const svg_height = 400
+  const svg_width = 400
   axis_width = svg_width - margin.left - margin.right;
   axis_height = svg_height - margin.top - margin.bottom;
   const barPadding = 1;     // barpadding for space between the bars
@@ -26,9 +26,9 @@ function makeBarChart(current_country_data, scores) {
 
   // adding a TITLE to the bar chart
   svg.append("text")
+    .attr("class", "plot")
     .attr("x", margin.left / 4)
     .attr("y", - margin.top / 4)
-    .attr("class", "plot")
     .attr("fill", "#525252")
     .text("Better Life details about " + title );
 
@@ -36,6 +36,7 @@ function makeBarChart(current_country_data, scores) {
   var x_scaling = d3.scale.linear()
     .domain([0, 6])
     .range([0, axis_width])
+
   var y_scaling = d3.scale.linear()
     .domain([0, 100])
     .range([axis_height, 0])
@@ -49,14 +50,12 @@ function makeBarChart(current_country_data, scores) {
         return x_axis_labels[i]
       })
 
-
-
   var yAxis = d3.svg.axis().scale(y_scaling)
       .orient("left")
       .ticks(10)
 
   // adding the x axis to the svg block on the correct position
-  svg.append("g")
+  var svg_x_axis = svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + axis_height + ")")
     .call(xAxis)
@@ -66,46 +65,36 @@ function makeBarChart(current_country_data, scores) {
     .attr("dy", "1.70em")
     .attr("transform", "rotate(-45)")
 
-  // adding text labels to x axis
-  svg.append("text")
-    .attr("class", "axistext")
-    .attr("x", svg_width + margin.left + 43)
-    .attr("y", svg_height + margin.left + 7)
-    .attr("text-anchor", "end")
-    .attr("text-alignment", "hanging")
-    .text(xLabel);
+  // // adding text labels to x axis
+  // svg.append("text")
+  //   .attr("class", "axistext")
+  //   .attr("x", svg_width + margin.left)
+  //   .attr("y", svg_height + margin.left + 7)
+  //   .attr("text-anchor", "end")
+  //   .attr("text-alignment", "hanging")
+  //   .text(xLabel);
 
   // adding the y axis
   svg.append("g")
     .attr("class", "y axis")
     .call(yAxis)
 
-  // // adding text labels to y axis
-  // svg.append("text")
-  //   .attr("class", "axistext")
-  //   .attr("x", 82)
-  //   .attr("y", margin.left + 15)
-  //   .attr("text-anchor", "end")
-  //   .attr("text-alignment", "hanging")
-  //   .text(yLabel);
 
-    svg.append("text")
-      .attr("class", "axistext")
-      .attr("transform", "rotate(-90)")
-      .attr("x", - (svg_height - axis_height - margin.top - margin.bottom))
-      .attr("y", 10)
-      .attr("dy", "1em")
-      .attr("text-anchor", "end")
-      .text(yLabel);
-  
-
+  svg.append("text")
+    .attr("class", "axis")
+    .attr("transform", "rotate(-90)")
+    .attr("x", - (svg_height - axis_height - margin.top - margin.bottom))
+    .attr("y", 10)
+    .attr("dy", "1em")
+    .attr("text-anchor", "end")
+    .text(yLabel);
 
   // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
   var tip = d3.tip()
     .attr("class", "d3-tip")
     .offset([-20, 0])
     .html(function(d, i) {
-      return "<strong>Score:</strong> <span style='color:white' >" + scores[i] + "% </span>";
+      return "<strong>" + x_axis_labels[i] + "</strong> <span style='color:white' >" + scores[i] + "% </span>";
       })
   svg.call(tip);
 
