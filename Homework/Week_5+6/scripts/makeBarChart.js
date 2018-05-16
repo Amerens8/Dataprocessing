@@ -1,16 +1,13 @@
 function makeBarChart(current_country_data) {
 
   // setting constants and initializing global variables
-  const margin = {top: 100, bottom: 100, right: 100, left: 100}
-  const svg_height = 650
-  const svg_width = 650
+  const margin = {top: 200, bottom: 200, right: 200, left: 200}
+  const svg_height = 888
+  const svg_width = 888
   axis_width = svg_width - margin.left - margin.right;
   axis_height = svg_height - margin.top - margin.bottom;
 
   const barPadding = 1;     // barpadding for space between the bars
-  // const padding = 100;      // padding to create space in the bottom left corner
-
-
 
   const xLabel = ""; // label for x axis
   const yLabel = "Percentage"; // label for y axis
@@ -34,26 +31,20 @@ function makeBarChart(current_country_data) {
   //   scores.push(Number(Number(current_country_data[i]["safe"]).toFixed(2)))
   // }
 
-  // creating an svg block element
-
-        // .attr("width", svg_width + (2 * padding))
-        // .attr("height", svg_height + (2 * padding))
-
-
 
   var svg = body
         .append("svg")
         .attr("width", svg_width)
         .attr("height", svg_height)
-        // .append("g")
-        // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        //
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
   var title = current_country_data.country;
 
   // adding a TITLE to the bar chart
   svg.append("text")
-    .attr("x", (svg_width / 2) - margin.right)
-    .attr("y", (margin.top / 2))
+    .attr("x", 0)
+    .attr("y", - margin.top / 4)
     .attr("class", "plot")
     .attr("fill", "#525252")
     .text("Better Life details about " + title );
@@ -66,7 +57,7 @@ function makeBarChart(current_country_data) {
     .domain([0, 100])
     .range([axis_height, 0])
 
-  var x_axis_labels = ['safe', 'employment', 'education', 'water', 'voter', 'long_hours']
+  var x_axis_labels = ['feeling safe', 'employment rate', 'education', 'water quality', 'voter turnout', 'long hours']
   // define the x and y axis and scale accordingly
   var xAxis = d3.svg.axis().scale(x_scaling)
       .orient("bottom")
@@ -102,7 +93,6 @@ function makeBarChart(current_country_data) {
   // adding the y axis
   svg.append("g")
     .attr("class", "y axis")
-    // .attr("transform", "translate(" + padding + "," + padding + ")")
     .call(yAxis)
 
   // adding text labels to y axis
@@ -131,22 +121,27 @@ function makeBarChart(current_country_data) {
     .attr("class", "rect")
     .attr('width', 0)
     .attr('height', 0)
-    .attr('y', svg_height)
+    .attr('y', axis_height)
     .attr("fill", function(d, i) {
       return "rgb(153, 35, " + (i * 30) + ")" // setting color to bars
     })
-    .on("mouseover", tip.show) // showing tooltip bars
-    .on("mouseout", tip.hide) // hiding tooltip bars
     .transition() // showing a transition from empty chart to bars showing up
     .duration(1500)
     .attr("x", function(d, i) {
-        return margin.left + i * ((svg_width - barPadding) / scores.length)
+        return  i * ((axis_width - barPadding) / scores.length)
     })
-    .attr("width", svg_width / scores.length - barPadding)  // defining width of each bar
+    .attr("width", axis_width / scores.length - barPadding)  // defining width of each bar
     .attr("y", function(d) {
-      return margin.left + y_scaling(d)  // data value used as y value
+      return y_scaling(d)  // data value used as y value
     })
     .attr("height", function(d) {
-      return svg_height - y_scaling(d)  // height of chart minus data value
+      return axis_height - y_scaling(d)  // height of chart minus data value
     })
+
+  // adding tooltips
+  svg.selectAll("rect")
+    .on("mouseover", tip.show) // showing tooltip bars
+    .on("mouseout", tip.hide) // hiding tooltip bars
+
+
 }
