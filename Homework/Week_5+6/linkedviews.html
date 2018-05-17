@@ -27,6 +27,7 @@
     <script type="text/javascript" src = "/scripts/makeWorldMap.js"></script>
     <script type="text/javascript" src = "/scripts/makeBarChart.js"></script>
     <script type="text/javascript" src = "/scripts/updateBarData.js"></script>
+    <script type="text/javascript" src = "/scripts/makeDutchBarChart.js"></script>
 
     <!-- <script type="text/javascript" src = "/scripts/makeScatter.js"></script> -->
     <div class="jumbotron text-center">
@@ -39,12 +40,20 @@
 
 
       <!-- creating a div for the world map -->
-      <div id="container" style="position: relative;display: block; margin: auto; width: 1000px; height: 1000px;"></div>
-
-      <!-- creating a div for the bar chart -->
-      <div id="container2" style="position: relative;display: block; margin: auto; width: 400px; height: 400;">
-        <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
+      <div id="worldmap">
       </div>
+      <div class="row" style = 'border: 1px solid; box-shadow: 5px 10px #fed976'>
+        <!-- <div class="col-sm-4"></div> -->
+      <!-- creating a div for the bar chart -->
+      <div class="col-sm-4" id="container2">
+
+      </div>
+      <div class="col-sm-3" id="container3" >
+        <!-- <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p> -->
+      </div>
+      <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
+    </div>
+
 
 
   </body>

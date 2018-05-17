@@ -85,3 +85,36 @@ p {
   text-decoration: underline;
 
 }
+
+#worldmap {
+  position: static;
+  display: block;
+  margin: auto;
+  width: 900px;
+  height: 700px;
+}
+
+
+#box {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #888888;
+}
+
+#container2 {
+  position: relative;
+  display: block;
+  margin-left: 150px;
+  width: 400px;
+  height: 400px;
+
+
+}
+
+#container3 {
+  position: relative;
+  display: block;
+  margin-left: 50px;
+  width: 400px;
+  height: 400px;
+}

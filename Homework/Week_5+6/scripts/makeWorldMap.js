@@ -73,7 +73,7 @@ function  makeWorldMap(map_data, bar_data) {
 
   var map = new Datamap(
     {
-      element: document.getElementById('container'),
+      element: document.getElementById('worldmap'),
       projection: 'mercator', // big world map
 
       // countries don't listed in dataset will be painted with default color
@@ -153,17 +153,17 @@ function  makeWorldMap(map_data, bar_data) {
   //     .attr("height", 150)
   //     .style("fill", "url(#gradient)")
   //     .attr("transform", "translate(20,10)");
-
-  var l = {
-    defaultFillName: "Whats left",
-    labels: {
-       you: "Fred",
-       spouse: "Wilma",
-       together: "Together",
-       separately: "Separately",
-    },
-  };
-  map.legend(l);
+  //
+  // var l = {
+  //   defaultFillName: "Lowest Satisfaction Rate",
+  //   someOtheraaFill: "Countries with no Data",
+  //   defaultFill: 'high',
+  //   labels: {
+  //      you: "Fred",
+  //
+  //   },
+  // };
+  // map.legend();
 
 
 }

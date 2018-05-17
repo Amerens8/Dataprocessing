@@ -1,6 +1,24 @@
-function makeBarChart(current_country_data, scores) {
-  // removing/closing previous svg bar chart in case another country is clicked
-  d4.select('#container3').select("#barchart").remove();
+function makeDutchBarChart(clicked_country, bar_data) {
+
+  console.log(clicked_country)
+
+  for (var i = 0; i < bar_data.length; i++) {
+    if (bar_data[i].code == clicked_country) {
+      current_country_data = bar_data[i]
+      var code = current_country_data.code       // empty array to store country names in later on
+      var country = current_country_data.country         // empty array to store happiness scores from data
+      var safe = Number(Number(current_country_data.safe).toFixed(2))
+      var employment = Number(Number(current_country_data.employment).toFixed(2))
+      var education = Number(Number(current_country_data.education).toFixed(2))
+      var water = Number(Number(current_country_data.water).toFixed(2))
+      var voter = Number(Number(current_country_data.voter).toFixed(2))
+      // var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
+      var scores = [safe, employment, education, water, voter]
+    }
+  }
+console.log(current_country_data)
+  console.log(scores)
+
 
   // setting constants and initializing global variables
   const margin = {top: 50, bottom: 80, right: 50, left: 50}
@@ -13,7 +31,7 @@ function makeBarChart(current_country_data, scores) {
   const xLabel = "variables"; // label for x axis
   const yLabel = "%"; // label for y axis
 
-  var svg = body.select("#container3")
+  var svg = body.select("#container2")
         .append("svg")
         .attr("id", "barchart")
         .attr("width", svg_width)
@@ -66,14 +84,23 @@ function makeBarChart(current_country_data, scores) {
     .attr("dy", "1.70em")
     .attr("transform", "rotate(-45)")
 
-  // adding text labels to x axis
-  svg.append("text")
-    .attr("class", "axis")
-    .attr("x", axis_width + margin.right)
-    .attr("y", axis_height + 5)
-    .attr("text-anchor", "end")
-    .attr("text-alignment", "hanging")
-    .text(xLabel);
+    // adding text labels to x axis
+    svg.append("text")
+      .attr("class", "axis")
+      .attr("x", axis_width + margin.right)
+      .attr("y", axis_height + 5)
+      .attr("text-anchor", "end")
+      .attr("text-alignment", "hanging")
+      .text(xLabel);
+
+  // // adding text labels to x axis
+  // svg.append("text")
+  //   .attr("class", "axistext")
+  //   .attr("x", svg_width + margin.left)
+  //   .attr("y", svg_height + margin.left + 7)
+  //   .attr("text-anchor", "end")
+  //   .attr("text-alignment", "hanging")
+  //   .text(xLabel);
 
   // adding the y axis
   svg.append("g")
@@ -109,10 +136,6 @@ function makeBarChart(current_country_data, scores) {
             ])
     .interpolate(d4.interpolateHcl)
     .range([d4.rgb(darkestColor), d4.rgb(lightestColor)]);
-
-
-
-
 
 
   // connecting the data to rect elements in svg

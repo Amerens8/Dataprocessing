@@ -28,10 +28,12 @@ function makeMapAndChart(error, response) {
 
   map_data = response[0];
   bar_data = response[1];
-
+  clicked_country = 'ZAF'
   makeWorldMap(map_data, bar_data)
-  current_country_data = bar_data[5]
-  updateBarData(current_country_data, bar_data)
+  // current_country_data = bar_data[18]
+  makeDutchBarChart('NLD', bar_data)
+  updateBarData(clicked_country, bar_data)
+
 
 
 }
