@@ -83,9 +83,9 @@ function makeBarChart(current_country_data, scores) {
 
   svg.append("text")
     .attr("class", "axis")
-    .attr("transform", "rotate(-90)")
-    .attr("x", - (svg_height - axis_height - margin.top - margin.bottom))
-    .attr("y", 10)
+    // .attr("transform", "rotate(-90)")
+    .attr("x", margin.left - 30)
+    .attr("y", 0)
     .attr("dy", "1em")
     .attr("text-anchor", "end")
     .text(yLabel);
@@ -109,6 +109,16 @@ function makeBarChart(current_country_data, scores) {
             ])
     .interpolate(d4.interpolateHcl)
     .range([d4.rgb(darkestColor), d4.rgb(lightestColor)]);
+
+
+    svg.select("barchart")
+      .append("p")
+      .text("Source: OECD Better Life Index")
+      .attr("class", "link")
+      .on("click", function() {
+         window.open("http://stats.oecd.org/Index.aspx?DataSetCode=BLI#")
+      })
+
 
 
   // connecting the data to rect elements in svg

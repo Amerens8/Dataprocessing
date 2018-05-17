@@ -54,7 +54,7 @@ p {
   padding: 5px;
   font-family: sans-serif;
   background: rgba(0, 0, 0, 0.8);
-  color: pink;
+  color: #fed976;
   border-radius: 2px;
 }
 
@@ -65,7 +65,7 @@ p {
   font-size: 8px;
   width: 100%;
   line-height: 1;
-  color: pink;
+  color: #fed976;
   content: "\25BC";
   position: absolute;
   text-align: center;
