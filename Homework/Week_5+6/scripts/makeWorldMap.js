@@ -49,11 +49,14 @@ function  makeWorldMap(map_data, bar_data) {
   var minValue = Math.min.apply(null, onlyValues)
   var maxValue = Math.max.apply(null, onlyValues);
 
+  var lightestColor = '#fed976'
+  var darkestColor = '#b10026'
+
   // create color palette function
-  // color can be whatever you wish
   var paletteScale = d3.scale.linear()
           .domain([minValue,maxValue])
-          .range(["#EFEFFF","#02386F"]); // blue color
+          .range([darkestColor, lightestColor])
+          // .range(["#EFEFFF","#02386F"]); // blue color
 
   // fill dataset in appropriate format
   for (let i = 0; i < dictionary.length; i++){

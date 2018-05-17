@@ -1,5 +1,4 @@
 function makeBarChart(current_country_data, scores) {
-
   // removing/closing previous svg bar chart in case another country is clicked
   d4.select('#barchart').remove();
 
@@ -11,10 +10,10 @@ function makeBarChart(current_country_data, scores) {
   axis_height = svg_height - margin.top - margin.bottom;
   const barPadding = 1;     // barpadding for space between the bars
 
-  const xLabel = ""; // label for x axis
-  const yLabel = "Percentage"; // label for y axis
+  const xLabel = "variables"; // label for x axis
+  const yLabel = "%"; // label for y axis
 
-  var svg = body
+  var svg = body.select("#container2")
         .append("svg")
         .attr("id", "barchart")
         .attr("width", svg_width)
@@ -34,23 +33,25 @@ function makeBarChart(current_country_data, scores) {
 
   // set the ranges and correct scaling of x and y axis
   var x_scaling = d3.scale.linear()
-    .domain([0, 6])
+    .domain([0, 5])
     .range([0, axis_width])
 
   var y_scaling = d3.scale.linear()
     .domain([0, 100])
     .range([axis_height, 0])
 
-  var x_axis_labels = ['feeling safe', 'employment rate', 'education', 'water quality', 'voter turnout', 'long hours']
+  var x_axis_labels = ['feeling safe', 'employment rate', 'education', 'water quality', 'voter turnout']
   // define the x and y axis and scale accordingly
-  var xAxis = d3.svg.axis().scale(x_scaling)
+  var xAxis = d3.svg.axis()
+      .scale(x_scaling)
       .orient("bottom")
-      .ticks(6)
+      .ticks(5)
       .tickFormat(function(d, i){
         return x_axis_labels[i]
       })
 
-  var yAxis = d3.svg.axis().scale(y_scaling)
+  var yAxis = d3.svg.axis()
+      .scale(y_scaling)
       .orient("left")
       .ticks(10)
 
@@ -98,6 +99,18 @@ function makeBarChart(current_country_data, scores) {
       })
   svg.call(tip);
 
+
+  var lightestColor = '#fed976'
+  var darkestColor = '#b10026'
+  // determine color scale for circles
+  var colorDimensions = d4.scaleLinear()
+    .domain([d4.min(scores),
+              d4.max(scores)
+            ])
+    .interpolate(d4.interpolateHcl)
+    .range([d4.rgb(darkestColor), d4.rgb(lightestColor)]);
+
+
   // connecting the data to rect elements in svg
   svg.selectAll("rect")
     .data(scores)
@@ -107,9 +120,9 @@ function makeBarChart(current_country_data, scores) {
     .attr('width', 0)
     .attr('height', 0)
     .attr('y', axis_height)
-    .attr("fill", function(d, i) {
-      return "rgb(153, 35, " + (i * 30) + ")" // setting color to bars
-    })
+    .attr("fill", function(d) {
+          return colorDimensions(d)
+        })
     .transition() // showing a transition from empty chart to bars showing up
     .duration(1500)
     .attr("x", function(d, i) {

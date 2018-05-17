@@ -9,8 +9,8 @@ function updateBarData(clicked_country, bar_data) {
   var education = Number(Number(current_country_data.education).toFixed(2))
   var water = Number(Number(current_country_data.water).toFixed(2))
   var voter = Number(Number(current_country_data.voter).toFixed(2))
-  var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
-  var scores = [safe, employment, education, water, voter, long_hours]
+  // var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
+  var scores = [safe, employment, education, water, voter]
 
   for (var i = 0; i < bar_data.length; i++) {
     if (bar_data[i].code == clicked_country) {
@@ -22,8 +22,8 @@ function updateBarData(clicked_country, bar_data) {
       var education = Number(Number(current_country_data.education).toFixed(2))
       var water = Number(Number(current_country_data.water).toFixed(2))
       var voter = Number(Number(current_country_data.voter).toFixed(2))
-      var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
-      var scores = [safe, employment, education, water, voter, long_hours]
+      // var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
+      var scores = [safe, employment, education, water, voter]
     }
   }
 

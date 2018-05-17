@@ -36,17 +36,14 @@ p {
 }
 .axis path,
 .axis line {
-    fill: pink;
-    stroke: pink;
+    fill: #737373;
+    /* stroke: pink; */
     shape-rendering: crispEdges;
-
 }
 
-
 .axis {
-
   font-family: verdana;
-  font-size: 9px;
+  font-size: 10px;
   align-content: center;
 }
 

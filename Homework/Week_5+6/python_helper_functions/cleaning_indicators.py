@@ -35,7 +35,7 @@ def cleaning_indicators(csvfile, clean_csvfile):
 
     # print(countries_values)
 
-    first_row = ('code', 'country', 'safe', 'employment', 'education', 'water', 'voter', 'long_hours')
+    first_row = ('code', 'country', 'safe', 'employment', 'education', 'water', 'voter')
     # print(countries_indicators)
     with open(clean_csvfile, 'w') as outfile:
         writer = csv.writer(outfile)
@@ -60,18 +60,18 @@ def cleaning_indicators(csvfile, clean_csvfile):
             value = countries_values[x]
             voter.append(countries_values[x])
             x += 1
-        for x in range(196, 234):
-            value = countries_values[x]
-            long_hours.append(countries_values[x])
-            x += 1
+        # for x in range(196, 234):
+        #     value = countries_values[x]
+        #     long_hours.append(countries_values[x])
+        #     x += 1
         x = 0
         for x in range(0, 38):
-            complete_line = countries_indicators[x + 1] + employment[x] + education[x] + water[x] + voter[x] + long_hours[x]
+            complete_line = countries_indicators[x + 1] + employment[x] + education[x] + water[x] + voter[x]
             # print(complete_line)
             complete.append(complete_line)
             x += 1
         print(complete)
-        
+
         for x in range(0, 38):
             writer.writerow(complete[x])
             x += 1
