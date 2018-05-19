@@ -1,3 +1,12 @@
+// updateBarData.js
+//
+// Amerens Jongsma (10735666)
+// Dataprocessing Minor Programmeren
+//
+// script to updateBarData for the variable, right Bar Chart that will be changed when
+// a button of the year is clicked.
+
+
 function updateBarData(clicked_country, bar_data) {
 
   for (var i = 0; i < bar_data.length; i++) {
@@ -10,10 +19,9 @@ function updateBarData(clicked_country, bar_data) {
       var education = Number(Number(current_country_data.education).toFixed(2))
       var water = Number(Number(current_country_data.water).toFixed(2))
       var voter = Number(Number(current_country_data.voter).toFixed(2))
-      // var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
       var scores = [safe, employment, education, water, voter]
     }
   }
-
+  // performt he makeBarChart function with newly passed in information
   makeBarChart(current_country_data, scores)
 }

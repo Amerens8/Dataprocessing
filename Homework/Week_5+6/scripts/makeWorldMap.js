@@ -1,3 +1,10 @@
+// makeWorldMap.js
+//
+// Amerens Jongsma (10735666)
+// Dataprocessing Minor Programmeren
+//
+// script to create worldmap from datamaps
+
 function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_data17) {
 
   d4.selectAll(".datamaps-legend").remove()
@@ -27,7 +34,6 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
     }
   }
 
-
   // combining previous arrays in a dictionary
   for (let i = 0; i < countries.length; i++){
     dictionary.push({
@@ -37,20 +43,16 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
     })
   }
 
-
-  // Datamaps expect data in format:
-  // { "USA": { "fillColor": "#42a844", numberOfWhatever: 75},
-  //   "FRA": { "fillColor": "#8dc386", numberOfWhatever: 43 } }
+  // SOURCE: http://jsbin.com/kuvojohapi/1/edit?html,output
+  // initialize dataset to put data in correct format for datamaps
+  // example: { "USA": { "fillColor": "#42a844", numberOfWhatever: 75}
   var dataset = {};
 
-  // SOURCE: http://jsbin.com/kuvojohapi/1/edit?html,output
-  // We need to colorize every country based on "numberOfWhatever"
-  // colors should be uniq for every value.
-  // For this purpose we create palette(using min/max series-value)
+
+  // creating a color palette (using minimum and maximum values)
   var onlyValues = dictionary.map(function(obj){ return obj.score; });
   var minValue = Math.min.apply(null, onlyValues)
   var maxValue = Math.max.apply(null, onlyValues);
-
   var lightestColor = '#fed976'
   var darkestColor = '#b10026'
 
@@ -66,20 +68,19 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
     dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value)}
   }
 
-
+  // creating some names and color combinations for the legend
   var fills = {
     defaultFill: '#F5F5F5',
-    // someOtherFill: '#ff0000'
     'Low Satisfaction (<5%)': darkestColor,
     'Middle Satisfaction (6.5%)': '#df8155',
     'High Satisfaction (>7.5%)': lightestColor
   };
 
-
+  // creating the Datamap
   var map = new Datamap(
     {
       element: document.getElementById('worldmap'),
-      projection: 'mercator', // big world map
+      projection: 'mercator',
 
       // countries don't listed in dataset will be painted with default color
       fills: fills,
@@ -91,19 +92,23 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
         highlightFillColor: function(geo) {
             return geo['fillColor'] || '#F5F5F5';
         },
+
         // only change border
         highlightBorderColor: '#B7B7B7',
+
         // show desired information in tooltip
         popupTemplate: function(geo, data) {
+
             // don't show tooltip if country don't present in dataset
             if (!data) { return ; }
+
             // tooltip content
             return ['<div class="hoverinfo">',
                 '<strong>', geo.properties.name, '</strong>',
                 '<br>Life Satisfaction: <strong>', data.numberOfThings, '</strong>',
                 '</div>'].join('');
-            }
-          },
+              }
+            },
         // source: https://bl.ocks.org/briwa/60024d70a5aee921d5910828fe8115be
         done: function(datamap) {
           datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
@@ -125,10 +130,6 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
   })
 
   // drawing the map's legend
-  // d4.select("#worldmap").
   map.legend();
-
-
-
 
 }

@@ -1,18 +1,29 @@
+// makeBarChart.js
+//
+// Amerens Jongsma (10735666)
+// Dataprocessing Minor Programmeren
+//
+// script to create the variable Bar Chart
+
 function makeBarChart(current_country_data, scores) {
+
   // removing/closing previous svg bar chart in case another country is clicked
   d4.select('#container3').select("#barchart").remove();
 
-  // setting constants and initializing global variables
+  // setting constants and initializing global variables for the svg chart
   const margin = {top: 50, bottom: 80, right: 50, left: 50}
   const svg_height = 400
   const svg_width = 400
-  axis_width = svg_width - margin.left - margin.right;
-  axis_height = svg_height - margin.top - margin.bottom;
-  const barPadding = 1;     // barpadding for space between the bars
+  axis_width = svg_width - margin.left - margin.right
+  axis_height = svg_height - margin.top - margin.bottom
+  const barPadding = 1
+  var title = current_country_data.country;
 
-  const xLabel = "variables"; // label for x axis
-  const yLabel = "%"; // label for y axis
+  // labels for x and y axis
+  const xLabel = "variable"
+  const yLabel = "%"
 
+  // initializing the svg container for the right barchart
   var svg = body.select("#container3")
         .append("svg")
         .attr("id", "barchart")
@@ -21,9 +32,7 @@ function makeBarChart(current_country_data, scores) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var title = current_country_data.country;
-
-  // adding a TITLE to the bar chart
+  // adding a title to the bar chart, according to currently selected country
   svg.append("text")
     .attr("class", "plot")
     .attr("x", margin.left / 4)
@@ -40,7 +49,8 @@ function makeBarChart(current_country_data, scores) {
     .domain([0, 100])
     .range([axis_height, 0])
 
-  var x_axis_labels = ['feeling safe', 'employment rate', 'education', 'water quality', 'voter turnout']
+  var x_axis_labels = ['Feeling Safe', 'Employment Rate', 'Education', 'Water Quality', 'Voter Turnout']
+
   // define the x and y axis and scale accordingly
   var xAxis = d3.svg.axis()
       .scale(x_scaling)
@@ -75,45 +85,39 @@ function makeBarChart(current_country_data, scores) {
     .attr("text-alignment", "hanging")
     .text(xLabel);
 
-  // adding the y axis
+  // adding the y axis to the svg block
   svg.append("g")
     .attr("class", "y axis")
     .call(yAxis)
 
-
   svg.append("text")
     .attr("class", "axis")
-    // .attr("transform", "rotate(-90)")
     .attr("x", margin.left - 30)
     .attr("y", 0)
     .attr("dy", "1em")
     .attr("text-anchor", "end")
     .text(yLabel);
 
-  // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
+  // using d3-tip to add tooltips to a d3 bar chart
+  // inspired by http://bl.ocks.org/Caged/6476579
   var tip = d3.tip()
     .attr("class", "d3-tip")
     .offset([-20, 0])
     .html(function(d, i) {
       return "<strong>" + x_axis_labels[i] + "</strong> <span style='color:white' >" + scores[i] + "% </span>";
       })
-  svg.call(tip);
+  svg.call(tip)
 
 
+  // defining light and dark colors
   var lightestColor = '#fed976'
   var darkestColor = '#b10026'
-  // determine color scale for circles
+
+  // determine color scale for bars
   var colorDimensions = d4.scaleLinear()
-    .domain([d4.min(scores),
-              d4.max(scores)
-            ])
+    .domain([d4.min(scores), d4.max(scores)])
     .interpolate(d4.interpolateHcl)
     .range([d4.rgb(darkestColor), d4.rgb(lightestColor)]);
-
-
-
-
-
 
   // connecting the data to rect elements in svg
   svg.selectAll("rect")
@@ -137,13 +141,11 @@ function makeBarChart(current_country_data, scores) {
       return y_scaling(d)  // data value used as y value
     })
     .attr("height", function(d) {
-      return axis_height - y_scaling(d)  // height of chart minus data value
+      return axis_height - y_scaling(d)  // height of axis minus data value
     })
 
-  // adding tooltips
+  // showing and hiding tooltip bars
   svg.selectAll("rect")
-    .on("mouseover", tip.show) // showing tooltip bars
-    .on("mouseout", tip.hide) // hiding tooltip bars
-
-
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide)
 }

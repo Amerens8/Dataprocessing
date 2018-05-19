@@ -1,5 +1,13 @@
+// makeDutchBarChart.js
+//
+// Amerens Jongsma (10735666)
+// Dataprocessing Minor Programmeren
+//
+// script to create the constand Dutch bar chart (only affected by year change)
+
 function makeDutchBarChart(clicked_country, bar_data) {
 
+  // extracting all data and saving into variables
   for (var i = 0; i < bar_data.length; i++) {
     if (bar_data[i].code == clicked_country) {
       current_country_data = bar_data[i]
@@ -10,7 +18,6 @@ function makeDutchBarChart(clicked_country, bar_data) {
       var education = Number(Number(current_country_data.education).toFixed(2))
       var water = Number(Number(current_country_data.water).toFixed(2))
       var voter = Number(Number(current_country_data.voter).toFixed(2))
-      // var long_hours = Number(Number(current_country_data.long_hours).toFixed(2))
       var scores = [safe, employment, education, water, voter]
     }
   }
@@ -21,20 +28,21 @@ function makeDutchBarChart(clicked_country, bar_data) {
   const svg_width = 400
   axis_width = svg_width - margin.left - margin.right;
   axis_height = svg_height - margin.top - margin.bottom;
-  const barPadding = 1;     // barpadding for space between the bars
-
-  const xLabel = "variables"; // label for x axis
-  const yLabel = "%"; // label for y axis
-
-  var svg = body.select("#container2")
-        .append("svg")
-        .attr("id", "barchart")
-        .attr("width", svg_width)
-        .attr("height", svg_height)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+  const barPadding = 1;
   var title = current_country_data.country;
+
+  // labels for x and y axis
+  const xLabel = "variables"
+  const yLabel = "%"
+
+  // creating svg container for left bar chart
+  var svg = body.select("#container2")
+            .append("svg")
+            .attr("id", "barchart")
+            .attr("width", svg_width)
+            .attr("height", svg_height)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // adding a TITLE to the bar chart
   svg.append("text")
@@ -53,7 +61,8 @@ function makeDutchBarChart(clicked_country, bar_data) {
     .domain([0, 100])
     .range([axis_height, 0])
 
-  var x_axis_labels = ['feeling safe', 'employment rate', 'education', 'water quality', 'voter turnout']
+  var x_axis_labels = ['Feeling Safe', 'Employment Rate', 'Education', 'Water Quality', 'Voter Turnout']
+
   // define the x and y axis and scale accordingly
   var xAxis = d3.svg.axis()
       .scale(x_scaling)
@@ -79,23 +88,14 @@ function makeDutchBarChart(clicked_country, bar_data) {
     .attr("dy", "1.70em")
     .attr("transform", "rotate(-45)")
 
-    // adding text labels to x axis
-    svg.append("text")
-      .attr("class", "axis")
-      .attr("x", axis_width + margin.right)
-      .attr("y", axis_height + 5)
-      .attr("text-anchor", "end")
-      .attr("text-alignment", "hanging")
-      .text(xLabel);
-
-  // // adding text labels to x axis
-  // svg.append("text")
-  //   .attr("class", "axistext")
-  //   .attr("x", svg_width + margin.left)
-  //   .attr("y", svg_height + margin.left + 7)
-  //   .attr("text-anchor", "end")
-  //   .attr("text-alignment", "hanging")
-  //   .text(xLabel);
+  // adding text labels to x axis
+  svg.append("text")
+    .attr("class", "axis")
+    .attr("x", axis_width + margin.right)
+    .attr("y", axis_height + 5)
+    .attr("text-anchor", "end")
+    .attr("text-alignment", "hanging")
+    .text(xLabel);
 
   // adding the y axis
   svg.append("g")
@@ -105,14 +105,14 @@ function makeDutchBarChart(clicked_country, bar_data) {
 
   svg.append("text")
     .attr("class", "axis")
-    // .attr("transform", "rotate(-90)")
     .attr("x", margin.left - 30)
     .attr("y", 0)
     .attr("dy", "1em")
     .attr("text-anchor", "end")
     .text(yLabel);
 
-  // inspired by http://bl.ocks.org/Caged/6476579 (Using d3-tip to add tooltips to a d3 bar chart)
+  // Using d3-tip to add tooltips to a d3 bar chart
+  // inspired by http://bl.ocks.org/Caged/6476579
   var tip = d3.tip()
     .attr("class", "d3-tip")
     .offset([-20, 0])
@@ -121,17 +121,15 @@ function makeDutchBarChart(clicked_country, bar_data) {
       })
   svg.call(tip);
 
-
+  //  setting colors for color scale min and maximum
   var lightestColor = '#fed976'
   var darkestColor = '#b10026'
+
   // determine color scale for circles
   var colorDimensions = d4.scaleLinear()
-    .domain([d4.min(scores),
-              d4.max(scores)
-            ])
+    .domain([d4.min(scores), d4.max(scores)])
     .interpolate(d4.interpolateHcl)
     .range([d4.rgb(darkestColor), d4.rgb(lightestColor)]);
-
 
   // connecting the data to rect elements in svg
   svg.selectAll("rect")
@@ -158,10 +156,8 @@ function makeDutchBarChart(clicked_country, bar_data) {
       return axis_height - y_scaling(d)  // height of chart minus data value
     })
 
-  // adding tooltips
+  // showing and hiding tooltips
   svg.selectAll("rect")
-    .on("mouseover", tip.show) // showing tooltip bars
-    .on("mouseout", tip.hide) // hiding tooltip bars
-
-
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide)
 }

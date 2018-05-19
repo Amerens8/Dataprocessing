@@ -2,14 +2,16 @@
 //
 // Amerens Jongsma (10735666)
 // Dataprocessing Minor Programmeren
-// 
+//
 // defining regularly-used variables globally
+
 var body = d3.select("body")
 var head = d4.select("head")
 
 // functions to run when window is initially loaded
 window.onload = function() {
 
+    // queue to load in all datasets before visualizations are made
     queue()
       .defer(d4.json, '/datasets/clean_BLIsatisf16.json')
       .defer(d4.json, '/datasets/clean_BLIindicators16.json')
@@ -23,7 +25,7 @@ function makeMapAndChart(error, response) {
   // check for error when loading data
   if (error) throw error;
 
-  // default year (2017)
+  // saving all datasets in variables
   var map_data16 = response[0]
   var bar_data16 = response[1]
   var map_data17 = response[2]

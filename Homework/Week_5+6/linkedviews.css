@@ -1,4 +1,4 @@
-/* Stylesheet (Amerens Jongsma) linkedviewsplot, linkedviews.js, linkedviews.html */
+/* Stylesheet (Amerens Jongsma) for linkedviewsplot, linkedviews.js, linkedviews.html */
 body {
   background: white;
   font-family: verdana;
@@ -26,7 +26,6 @@ h4 {
   font-size: 14px;
   color: black;
 }
-
 
 p {
     font-family: verdana;
@@ -94,7 +93,7 @@ p {
   height: 700px;
 }
 
-
+/* first barchart */
 #container2 {
 
   position: relative;
@@ -104,7 +103,7 @@ p {
   width: 350px;
   height: 350px;
 }
-
+/* second barchart */
 #container3 {
   position: relative;
   display: block;
@@ -118,21 +117,17 @@ p {
 #tulp {
   background-image: url("tulp.png");
 }
-
+/* styling for story.html text */
 #story1 {
   margin-left: 50px;
   margin-right: 80px;
   margin-top: 50px;
-  border: line;
-
 }
 #story2 {
   margin-left: 50px;
   margin-right: 80px;
   margin-top: 50px;
   margin-bottom: 100px;
-  border: line;
-
 }
 
 #btn-d2016:active {

@@ -1,170 +1,154 @@
+<!--
+      story.html
+
+      Amerens Jongsma 10735666
+      webpage for information/explanation/storytelling page of the visualizations
+ -->
+
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="shortcut icon" href="">
-  <meta charset="utf-8">
-  <title> Amerens Week 5 Story </title>
+  <head>
+    <link rel="shortcut icon" href="">
+    <meta charset="utf-8">
+    <title> Amerens Week 5 Story </title>
 
-  <!-- loading in scrips for differen d3 versions and tooltips  -->
-  <script type="text/javascript" src="d3/d3vers4.js"></script>
-  <script src="d3/d3v4.js"></script>
-  <script src="https://d3js.org/queue.v1.min.js"></script>
-  <script type="text/javascript" src="d3/d3.v3.js"></script>
-  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <!-- loading in scrips for differen d3 versions and tooltips  -->
+    <script type="text/javascript" src="d3/d3vers4.js"></script>
+    <script src="d3/d3v4.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <script type="text/javascript" src="d3/d3.v3.js"></script>
+    <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-  <!-- loading in necessary files for datamap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!-- loading in necessary files for datamap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 
+    <!-- general styling sheet -->
+    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
 
-  <!-- general styling sheet -->
-  <link rel="stylesheet" type="text/css" href="linkedviews.css" />
+    <!-- general styling sheet -->
+    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="linkedviews.html">Data Processing</a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="linkedviews.html">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="story.html">Story <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://stats.oecd.org/Index.aspx?DataSetCode=BLI">Source</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Amerens Jongsma</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-  <!-- general styling sheet -->
-  <link rel="stylesheet" type="text/css" href="linkedviews.css" />
+    <div class="row" id='story1'>
+      <div class="col-sm-9">
+      <h2> Story behind the visualizations </h2>
+      <h4>
+        <h3> World Map </h3>
+        The visualization of the map and the two bar charts below it, are a result of
+        a dataset from the Better Life Index. This index has data from about 40 countries
+        accross the world with variables, related to the happiness of people in a country.
+        The first visualization shows a world map in which the countries participating in this dataset
+        have been given a color. The other countries have been given a grayish color and have no
+        function for the purpose of this visualization. For the countries that have been filled with a color,
+        the lighter the color, the higher the average satisfaction rate of the people in that country.
+        When the viewer hovers over a colored country, you can see the country name and its
+        satisfaction rate.
+        <br>
+        One can see that particularly countries as Australia, New Zealand Canada, Western European and most
+        Nordic countries have a high Satifcation Rate. Lower scoring countries are for example, South Africa and Portugal.
+        I used the dataset of both 2016 and 2017. There were some minor differences, but it is hard to draw conclusion from
+        them without further researching the data. One country that had a 0.4 change up is Mexico.
+        <br>
+        Another feature of this map is that when one clicks on a colored country,
+        it changes the data in the right oriented barchart below the worldmap to that specific
+        country. In the next paragraph I will explain what the variables in those bar charts stand for.
 
+      </h4>
+      </div>
 
-</head>
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="linkedviews.html">Data Processing</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="linkedviews.html">Home </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="story.html">Story <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://stats.oecd.org/Index.aspx?DataSetCode=BLI">Source</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Amerens Jongsma</a>
-        </li>
-
-
-      </ul>
+      <div class="col-sm-3" style="background-color:#ffd1b3; margin-top: 120px; margin-bottom: 150px; ">
+        Satisfaction Rate
+        <br>
+        <h4> "The indicator considers people's evaluation of their life as a whole.
+          It is a weighted-sum of different response categories based on people's rates of
+          their current life relative to the best and worst possible lives for them on
+          a scale from 0 to 10, using the Cantril Ladder (known also as the
+          "Self-Anchoring Striving Scale"). </h4>
+      </div>
 
     </div>
-  </nav>
 
-  <div class="row" id='story1'>
-    <div class="col-sm-9">
-    <h2> Story behind the visualizations </h2>
-    <h4>
-      <h3> World Map </h3>
-      The visualization of the map and the two bar charts below it, are a result of
-      a dataset from the Better Life Index. This index has data from about 40 countries
-      accross the world with variables, related to the happiness of people in a country.
-      The first visualization shows a world map in which the countries participating in this dataset
-      have been given a color. The other countries have been given a grayish color and have no
-      function for the purpose of this visualization. For the countries that have been filled with a color,
-      the lighter the color, the higher the average satisfaction rate of the people in that country.
-      When the viewer hovers over a colored country, you can see the country name and its
-      satisfaction rate.<br>
+    <div class="row" id='story1'>
+      <div class="col-sm-8">
+      <h4>
+        <h3> Bar Chart </h3>
+        I have chosen to depict to barcharts for the purpose of comparison. The default
+        country I picked is the Netherlands (hence the color orange) and this chart is depicted
+        on the left side. On the right side, whichever country is clicked on the map
+        will be shown. There are five variables considere, all being displayed as a percentage
+        which made it most logical to combine them all in one graph. In the desciptions of the variables
+        on this page, you can find the exact definitions, as given by the dataset on the OECD website.
+        The colors in these charts are more for styling, but they have been calculed as the higher, the percentage,
+        the lighter the color of the bar, relative to the other variables of that country in that specific year.
+      </h4>
+      </div>
 
-      One can see that particularly countries as Australia, New Zealand Canada, Western European and most
-      Nordic countries have a high Satifcation Rate. Lower scoring countries are for example, South Africa and Portugal.
-      I used the dataset of both 2016 and 2017. There were some minor differences, but it is hard to draw conclusion from
-      them without further researching the data. One country that had a 0.4 change up is Mexico.
-<br>
-      Another feature of this map is that when one clicks on a colored country,
-      it changes the data in the right oriented barchart below the worldmap to that specific
-      country. In the next paragraph I will explain what the variables in those bar charts stand for.
-
-    </h4>
-    </div>
-
-    <div class="col-sm-3" style="background-color:#ffd1b3; margin-top: 120px; margin-bottom: 150px; ">
-      Satisfaction Rate
-      <br>
-      <h4> "The indicator considers people's evaluation of their life as a whole.
-        It is a weighted-sum of different response categories based on people's rates of
-        their current life relative to the best and worst possible lives for them on
-        a scale from 0 to 10, using the Cantril Ladder (known also as the
-        "Self-Anchoring Striving Scale"). </h4>
-    </div>
-
-  </div>
-
-  <div class="row" id='story1'>
-    <div class="col-sm-8">
-    <h4>
-      <h3> Bar Chart </h3>
-      I have chosen to depict to barcharts for the purpose of comparison. The default
-      country I picked is the Netherlands (hence the color orange) and this chart is depicted
-      on the left side. On the right side, whichever country is clicked on the map
-      will be shown. There are five variables considere, all being displayed as a percentage
-      which made it most logical to combine them all in one graph. In the desciptions of the variables
-      on this page, you can find the exact definitions, as given by the dataset on the OECD website.
-      The colors in these charts are more for styling, but they have been calculed as the higher, the percentage,
-      the lighter the color of the bar, relative to the other variables of that country in that specific year.
-
-    </h4>
-    </div>
-
-    <div class="col-sm-3" style="background-color:#ffd1b3; margin-top: 50px;">
+      <div class="col-sm-3" style="background-color:#ffd1b3; margin-top: 50px;">
         Feeling Safe
         <h4> "The indicator considers people's evaluation of their life as a whole.
         It is a weighted-sum of different response categories based on people's rates of
         their current life relative to the best and worst possible lives for them on
         a scale from 0 to 10, using the Cantril Ladder (known also as the
         "Self-Anchoring Striving Scale"). </h4>
+      </div>
     </div>
 
-  </div>
 
-
-  <div class="row" id='story2'>
-
-    <div class="col-sm-3" >
+    <div class="row" id='story2'>
+      <div class="col-sm-3" >
         Employment Rate
         <h4> It is the number of employed persons aged 15 to 64 over the population
           of the same age. Employed people are those aged 15 or more who report that
           they have worked in gainful employment for at least one hour in the previous
           week, as defined by the International Labour Organization – ILO." </h4>
-    </div>
-    <div class="col-sm-3" style="background-color:#ffd1b3">
+      </div>
+      <div class="col-sm-3" style="background-color:#ffd1b3">
         Water Quality
         <h4> "The indicator captures people's subjective appreciation of the
-          environment where they live, in particular the quality of the water.
-          It is based on the question: "In the city or area where you live, are
-          you satisfied or dissatisfied with the quality of water?" and it
-           considers people who responded they are satisfied." </h4>
-    </div>
-    <div class="col-sm-3">
+        environment where they live, in particular the quality of the water.
+        It is based on the question: "In the city or area where you live, are
+        you satisfied or dissatisfied with the quality of water?" and it
+         considers people who responded they are satisfied." </h4>
+      </div>
+      <div class="col-sm-3">
         Education Attainment
         <h4> "Educational attainment considers the number of adults aged 25 to 64
-          holding at least an upper secondary degree over the population of the
-          same age, as defined by the OECD-ISCED classification." </h4>
-    </div>
-    <div class="col-sm-3" style="background-color:#ffd1b3">
+        holding at least an upper secondary degree over the population of the
+        same age, as defined by the OECD-ISCED classification." </h4>
+      </div>
+      <div class="col-sm-3" style="background-color:#ffd1b3">
         Voter Turnout
         <h4> "Voter turnout is here defined as the ratio between the number of
-          individuals that cast a ballot during an election (whether this vote
-          is valid or not) to the population registered to vote. As institutional
-           features of voting systems vary a lot across countries and across types
-            of elections, the indicator refers to the elections (parliamentary or presidential)
-             that have attracted the largest number of voters in each country." </h4>
+        individuals that cast a ballot during an election (whether this vote
+        is valid or not) to the population registered to vote. As institutional
+        features of voting systems vary a lot across countries and across types
+        of elections, the indicator refers to the elections (parliamentary or presidential)
+        that have attracted the largest number of voters in each country." </h4>
+      </div>
     </div>
-
-
-
-
-
-
-  </div>
-
-
-
   </body>
 </html>
