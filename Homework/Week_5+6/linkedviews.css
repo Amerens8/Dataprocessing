@@ -100,7 +100,7 @@ p {
   position: relative;
   display: block;
   margin-left: 150px;
-  margin-top: 50px;
+  margin-top: 100px;
   width: 350px;
   height: 350px;
 }
@@ -110,7 +110,7 @@ p {
   display: block;
   margin-left: 50px;
   margin-bottom: 100px;
-  margin-top: 50px;
+  margin-top: 100px;
   width: 350px;
   height: 350px;
 }
@@ -133,4 +133,8 @@ p {
   margin-bottom: 100px;
   border: line;
 
+}
+
+#btn-d2016:active {
+  color: #ffffff;
 }
