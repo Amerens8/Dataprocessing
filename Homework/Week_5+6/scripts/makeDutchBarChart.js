@@ -1,7 +1,5 @@
 function makeDutchBarChart(clicked_country, bar_data) {
 
-  console.log(clicked_country)
-
   for (var i = 0; i < bar_data.length; i++) {
     if (bar_data[i].code == clicked_country) {
       current_country_data = bar_data[i]
@@ -16,9 +14,6 @@ function makeDutchBarChart(clicked_country, bar_data) {
       var scores = [safe, employment, education, water, voter]
     }
   }
-console.log(current_country_data)
-  console.log(scores)
-
 
   // setting constants and initializing global variables
   const margin = {top: 50, bottom: 80, right: 50, left: 50}

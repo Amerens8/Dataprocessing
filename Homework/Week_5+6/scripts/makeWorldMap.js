@@ -1,11 +1,12 @@
-function  makeWorldMap(map_data, bar_data) {
+function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_data17) {
 
   var scores = []
   var codes = []
   var countries = []
   var dictionary = []
+
   // extract and put data from dataset in arrays
-  for (let i = 0; i < 38 ; i++){
+  for (let i = 0; i < map_data.length ; i++){
 
     // storing country codes in an array
     country_name = map_data[i].code
