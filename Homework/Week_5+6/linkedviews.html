@@ -1,3 +1,14 @@
+<!--
+      linkedviews.html
+
+      Amerens Jongsma 10735666
+      main html page for the project of Dataprocessing week 5 + 6
+      this file is the main structure of a page using bootstrap functions,
+      a worldmap and javascipts
+
+ -->
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,13 +46,12 @@
     <script type="text/javascript" src = "/scripts/makeDutchBarChart.js"></script>
     <script type="text/javascript" src = "/scripts/updateYear.js"></script>
 
-
+    <!-- navigation bar with items  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Data Processing</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -56,40 +66,30 @@
           <li class="nav-item">
             <a class="nav-link disabled">Amerens Jongsma</a>
           </li>
-
-
         </ul>
-
       </div>
     </nav>
 
     <!-- <script type="text/javascript" src = "/scripts/makeScatter.js"></script> -->
     <div class="jumbotron text-center" id='tulp'>
-      <!-- <img src="tulp.jpg" alt="tulp"> -->
-        <!-- setting titles and subtitles on the main html page -->
-        <h1> Is Life Better in The Netherlands? </h1>
-        <h2> A comparison of satisfaction rates and other life indicators in the World </h2>
-        <h3> Amerens Jongsma | Minor Programmeren, Data Processing </h3>
-        <h4> This worldmap shows the average Life Satisfaction of people in a selection of countries </h4>
+      <!-- setting titles and subtitles on the main html page -->
+      <h1> Is Life Better in The Netherlands? </h1>
+      <h2> A comparison of satisfaction rates and other life indicators in the World </h2>
+      <h4> Amerens Jongsma | Minor Programmeren, Data Processing </h4>
 
-        <button type="button" id="d2016" class="btn btn-secondary">Better Life Index 2016</button>
-        <button type="button" id="d2017" class="btn btn-secondary">Better Life Index 2017</button>
-
-      </div>
+      <button type="button" id="d2016" class="btn btn-secondary">Better Life Index 2016</button>
+      <button type="button" id="d2017" class="btn btn-secondary">Better Life Index 2017</button>
+    </div>
 
 
     <!-- creating a div for the world map -->
     <div id="worldmap"></div>
 
+    <!-- creating a div for the bar charts -->
     <div class="row" >
-      <!-- creating a div for the bar chart -->
       <div class="col-sm-4" id="container2"></div>
       <div class="col-sm-3" id="container3" >
       </div>
-      <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
     </div>
-
-
-
   </body>
 </html>
