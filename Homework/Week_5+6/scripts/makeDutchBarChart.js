@@ -32,7 +32,7 @@ function makeDutchBarChart(clicked_country, bar_data) {
   var title = current_country_data.country;
 
   // labels for x and y axis
-  const xLabel = "variables"
+  const xLabel = "variable"
   const yLabel = "%"
 
   // creating svg container for left bar chart
