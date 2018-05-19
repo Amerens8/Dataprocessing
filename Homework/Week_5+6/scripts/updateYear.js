@@ -9,8 +9,6 @@ function updateYear(current_year, map_data16, bar_data16, map_data17, bar_data17
     bar_data = bar_data17
   }
 
-
-  console.log(current_year)
   clicked_country = 'ZAF'
   makeWorldMap(current_year, map_data, bar_data)
   makeDutchBarChart('NLD', bar_data)

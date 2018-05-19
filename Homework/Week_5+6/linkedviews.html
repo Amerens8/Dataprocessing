@@ -13,13 +13,17 @@
     <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
     <!-- loading in necessary files for datamap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <script src="/datamaps.world.min.js"></script>
     <script type="text/javascript" src="d3/tip.js"></script>
-    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
 
+    <!-- general styling sheet -->
+    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
 
 
   </head>
@@ -31,17 +35,45 @@
     <script type="text/javascript" src = "/scripts/makeDutchBarChart.js"></script>
     <script type="text/javascript" src = "/scripts/updateYear.js"></script>
 
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Data Processing</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="linkedviews.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="story.html">Story</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://stats.oecd.org/Index.aspx?DataSetCode=BLI">Source</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Amerens Jongsma</a>
+          </li>
+
+
+        </ul>
+
+      </div>
+    </nav>
+
     <!-- <script type="text/javascript" src = "/scripts/makeScatter.js"></script> -->
-    <div class="jumbotron text-center" id='test'>
+    <div class="jumbotron text-center" id='tulp'>
       <!-- <img src="tulp.jpg" alt="tulp"> -->
         <!-- setting titles and subtitles on the main html page -->
-        <h1> Is life better in The Netherlands? </h1>
+        <h1> Is Life Better in The Netherlands? </h1>
         <h2> A comparison of satisfaction rates and other life indicators in the World </h2>
         <h3> Amerens Jongsma | Minor Programmeren, Data Processing </h3>
         <h4> This worldmap shows the average Life Satisfaction of people in a selection of countries </h4>
 
-        <button type="button" id="d2016" class="btn btn-secondary active">Better Life Index 2016</button>
-        <button type="button" id="d2017" class="btn btn-secondary ">Better Life Index 2017</button>
+        <button type="button" id="d2016" class="btn btn-secondary">Better Life Index 2016</button>
+        <button type="button" id="d2017" class="btn btn-secondary">Better Life Index 2017</button>
 
       </div>
 
@@ -56,6 +88,7 @@
       </div>
       <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
     </div>
+
 
 
   </body>

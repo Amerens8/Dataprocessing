@@ -43,10 +43,4 @@ function makeMapAndChart(error, response) {
   });
 
 
-  // clicked_country = 'ZAF'
-  // makeWorldMap(map_data, bar_data)
-  // makeDutchBarChart('NLD', bar_data)
-  // updateBarData(clicked_country, bar_data)
-
-
 }
