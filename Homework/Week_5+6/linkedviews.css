@@ -87,7 +87,7 @@ p {
 }
 
 #worldmap {
-  position: static;
+  position: relative;
   display: block;
   margin: auto;
   width: 900px;
@@ -105,8 +105,8 @@ p {
   position: relative;
   display: block;
   margin-left: 150px;
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
 
 
 }
@@ -115,6 +115,11 @@ p {
   position: relative;
   display: block;
   margin-left: 50px;
-  width: 400px;
-  height: 400px;
+  margin-bottom: 100px;
+  width: 350px;
+  height: 350px;
+}
+
+#test {
+  background-image: url("tulp.jpg");
 }

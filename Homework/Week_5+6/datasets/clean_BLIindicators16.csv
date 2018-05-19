@@ -1,0 +1,39 @@
+code,country,safe,employment,education,water,voter
+AUS,Australia,62.6,72,77,94,93
+AUT,Austria,81.2,71,84,93,75
+BEL,Belgium,69.6,62,74,83,89
+CAN,Canada,81.7,72,90,90,68
+CZE,Czech Republic,70.1,69,93,88,59
+DNK,Denmark,85.2,73,80,95,86
+FIN,Finland,85.8,69,87,94,69
+FRA,France,70.6,64,75,84,80
+DEU,Germany,74.6,74,87,94,72
+GRC,Greece,62.5,49,68,69,64
+HUN,Hungary,53.2,62,83,76,62
+ISL,Iceland,78.1,82,73,97,81
+IRL,Ireland,77,61,79,82,70
+ITA,Italy,59.3,57,59,70,75
+JPN,Japan,70.2,73,94,87,53
+KOR,Korea,67.7,65,85,78,76
+LUX,Luxembourg,70.6,67,82,85,91
+MEX,Mexico,39.9,60,34,68,63
+NLD,Netherlands,80.5,73,76,94,75
+NZL,New Zealand,64.4,74,74,92,77
+NOR,Norway,89.6,75,82,97,78
+POL,Poland,66.1,62,91,80,55
+PRT,Portugal,69.2,63,43,89,56
+SVK,Slovak Republic,62.1,61,91,81,59
+ESP,Spain,81.6,57,57,71,73
+SWE,Sweden,76.8,75,82,95,86
+CHE,Switzerland,87.4,80,88,97,48
+TUR,Turkey,60.4,50,36,63,85
+GBR,United Kingdom,77.8,73,79,87,66
+USA,United States,73.9,68,90,84,67
+BRA,Brazil,39.5,67,46,73,79
+CHL,Chile,50.2,62,61,71,49
+EST,Estonia,67.2,70,91,84,64
+ISR,Israel,66.3,68,85,65,72
+LVA,Latvia,61.6,66,90,76,65
+RUS,Russia,52.9,69,95,49,52
+SVN,Slovenia,83.9,64,86,91,59
+ZAF,South Africa,39.8,43,65,69,73

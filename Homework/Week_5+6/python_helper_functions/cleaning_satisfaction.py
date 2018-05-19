@@ -19,15 +19,13 @@ def cleaning_satisfaction(csvfile, clean_csvfile):
         splitted = row.split(',')
         data.append(splitted)
 
-    print(data)
-
     for row in data:
         location = row[0]
         country = row[1]
         score = row[14]
         countries_satisfaction.append([location, country, score])
     first_row = ('code', 'country', 'score')
-    print(countries_satisfaction)
+
     with open(clean_csvfile, 'w') as outfile:
         writer = csv.writer(outfile)
         x = 0
@@ -37,4 +35,4 @@ def cleaning_satisfaction(csvfile, clean_csvfile):
             x += 1
 
 #  this function was applied to the following dataset
-cleaning_satisfaction('BLIsatisf17.csv', 'clean_BLIsatisf17.csv')
+cleaning_satisfaction('BLIsatisf16.csv', 'clean_BLIsatisf16.csv')

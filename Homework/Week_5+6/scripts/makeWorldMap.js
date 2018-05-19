@@ -56,7 +56,6 @@ function  makeWorldMap(map_data, bar_data) {
   var paletteScale = d3.scale.linear()
           .domain([minValue,maxValue])
           .range([darkestColor, lightestColor])
-          // .range(["#EFEFFF","#02386F"]); // blue color
 
   // fill dataset in appropriate format
   for (let i = 0; i < dictionary.length; i++){
@@ -65,9 +64,13 @@ function  makeWorldMap(map_data, bar_data) {
     dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value)}
   }
 
+
   var fills = {
-    someOtherFill: '#ff0000',
-    defaultFill: '#F5F5F5'
+    defaultFill: '#F5F5F5',
+    // someOtherFill: '#ff0000'
+    'Low Satisfaction (<5%)': darkestColor,
+    'Middle Satisfaction (6.5%)': '#df8155',
+    'High Satisfaction (>7.5%)': lightestColor
   };
 
 
@@ -119,51 +122,12 @@ function  makeWorldMap(map_data, bar_data) {
       }
   })
 
-  // create the legend
-  // var key = d4.select("svg")
-  //     .append("svg")
-  //     .attr("width", 140)
-  //     .attr("height", 150)
-  //     .attr("class", "legend");
-  //
-  // var legend = key.append("defs")
-  //     .append("svg:linearGradient")
-  //     .attr("id", "gradient")
-  //     .attr("x1", "100%")
-  //     .attr("y1", "0%")
-  //     .attr("x2", "100%")
-  //     .attr("y2", "100%")
-  //     .attr("spreadMethod", "pad");
-  //
-  // // set top of legend
-  // legend.append("stop")
-  //     .attr("offset", "0%")
-  //     .attr("stop-color", darkestColor)
-  //     .attr("stop-opacity", 1);
-  //
-  // // set bottom of legend
-  // legend.append("stop")
-  //     .attr("offset", "100%")
-  //     .attr("stop-color", lightestColor)
-  //     .attr("stop-opacity", 1);
-  //
-  // // append rectangle for the legend
-  // key.append("rect")
-  //     .attr("width", 20)
-  //     .attr("height", 150)
-  //     .style("fill", "url(#gradient)")
-  //     .attr("transform", "translate(20,10)");
-  //
-  // var l = {
-  //   defaultFillName: "Lowest Satisfaction Rate",
-  //   someOtheraaFill: "Countries with no Data",
-  //   defaultFill: 'high',
-  //   labels: {
-  //      you: "Fred",
-  //
-  //   },
-  // };
-  // map.legend();
+  document.getElementById('worldmap')
+  // drawing the map's legend
+  // d4.select("#worldmap").
+  map.legend();
+
+
 
 
 }

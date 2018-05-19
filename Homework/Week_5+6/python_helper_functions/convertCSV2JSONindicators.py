@@ -21,4 +21,4 @@ def convertCSV2JSON(csvfile, jsonfile):
     jsonfile.write(out)
 
 #  this function was applied to the following csv files
-convertCSV2JSON('clean_BLIindicators17.csv', 'clean_BLIindicators17.json')
+convertCSV2JSON('clean_BLIindicators16.csv', 'clean_BLIindicators16.json')

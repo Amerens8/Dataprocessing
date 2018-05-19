@@ -30,31 +30,37 @@
     <script type="text/javascript" src = "/scripts/makeDutchBarChart.js"></script>
 
     <!-- <script type="text/javascript" src = "/scripts/makeScatter.js"></script> -->
-    <div class="jumbotron text-center">
-      <!-- setting titles and subtitles on the main html page -->
-      <h1> Linked Views </h1>
-      <h2> Satisfaction Rates in the World </h2>
-      <h3> Amerens Jongsma | Minor Programmeren, Data Processing </h3>
-      <h4> This worldmap shows the average Life Satisfaction of people in a selection of countries </h4>
-    </div>
+    <div class="jumbotron text-center" id='test'>
+      <!-- <img src="tulp.jpg" alt="tulp"> -->
+        <!-- setting titles and subtitles on the main html page -->
+        <h1> Linked Views </h1>
+        <h2> Satisfaction Rates in the World </h2>
+        <h3> Amerens Jongsma | Minor Programmeren, Data Processing </h3>
+        <h4> This worldmap shows the average Life Satisfaction of people in a selection of countries </h4>
 
+        <div class ="dropdown">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+            Year
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item" id="2016"> 2016</li>
+            <li class="dropdown-item" id="2017"> 2017</li>
+          </ul>
+        </div>
 
-      <!-- creating a div for the world map -->
-      <div id="worldmap">
       </div>
-      <div class="row" style = 'border: 1px solid; box-shadow: 5px 10px #fed976'>
-        <!-- <div class="col-sm-4"></div> -->
+
+    <!-- creating a div for the world map -->
+    <div id="worldmap"></div>
+
+
+    <div class="row" id="box">
       <!-- creating a div for the bar chart -->
-      <div class="col-sm-4" id="container2">
-
-      </div>
+      <div class="col-sm-4" id="container2"></div>
       <div class="col-sm-3" id="container3" >
-        <!-- <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p> -->
       </div>
       <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
     </div>
-
-
 
   </body>
 </html>
