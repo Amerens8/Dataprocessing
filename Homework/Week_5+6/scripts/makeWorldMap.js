@@ -1,5 +1,6 @@
 function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_data17) {
 
+  d4.selectAll(".datamaps-legend").remove()
   var scores = []
   var codes = []
   var countries = []
@@ -123,7 +124,6 @@ function  makeWorldMap(current_year, map_data16, bar_data16, map_data17, bar_dat
       }
   })
 
-  document.getElementById('worldmap')
   // drawing the map's legend
   // d4.select("#worldmap").
   map.legend();

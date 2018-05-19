@@ -18,11 +18,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <script src="/datamaps.world.min.js"></script>
     <script type="text/javascript" src="d3/tip.js"></script>
+    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
+
 
 
   </head>
   <body>
-    <link rel="stylesheet" type="text/css" href="linkedviews.css" />
     <script type="text/javascript" src = "/scripts/linkedviews.js"></script>
     <script type="text/javascript" src = "/scripts/makeWorldMap.js"></script>
     <script type="text/javascript" src = "/scripts/makeBarChart.js"></script>
@@ -34,8 +35,8 @@
     <div class="jumbotron text-center" id='test'>
       <!-- <img src="tulp.jpg" alt="tulp"> -->
         <!-- setting titles and subtitles on the main html page -->
-        <h1> Linked Views </h1>
-        <h2> Satisfaction Rates in the World </h2>
+        <h1> Is life better in The Netherlands? </h1>
+        <h2> A comparison of satisfaction rates and other life indicators in the World </h2>
         <h3> Amerens Jongsma | Minor Programmeren, Data Processing </h3>
         <h4> This worldmap shows the average Life Satisfaction of people in a selection of countries </h4>
 
@@ -48,14 +49,14 @@
     <!-- creating a div for the world map -->
     <div id="worldmap"></div>
 
-
-    <div class="row" id="box">
+    <div class="row" >
       <!-- creating a div for the bar chart -->
       <div class="col-sm-4" id="container2"></div>
       <div class="col-sm-3" id="container3" >
       </div>
       <p href = 'http://stats.oecd.org/Index.aspx?DataSetCode=BLI#'> Source </p>
     </div>
+
 
   </body>
 </html>

@@ -14,7 +14,7 @@ h1 {
 h2 {
   font-family: georgia;
   font-size: 30px;
-  color: #737373;
+  color: #636363;
 }
 h3 {
   font-family: georgia;
@@ -95,20 +95,13 @@ p {
 }
 
 
-#box {
-  border: 1px solid;
-  padding: 10px;
-  box-shadow: 5px 10px #888888;
-}
-
 #container2 {
+
   position: relative;
   display: block;
   margin-left: 150px;
   width: 350px;
   height: 350px;
-
-
 }
 
 #container3 {
