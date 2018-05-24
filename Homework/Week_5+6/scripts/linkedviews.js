@@ -13,10 +13,10 @@ window.onload = function() {
 
     // queue to load in all datasets before visualizations are made
     queue()
-      .defer(d4.json, '/datasets/clean_BLIsatisf16.json')
-      .defer(d4.json, '/datasets/clean_BLIindicators16.json')
-      .defer(d4.json, '/datasets/clean_BLIsatisf17.json')
-      .defer(d4.json, '/datasets/clean_BLIindicators17.json')
+      .defer(d4.json, 'datasets/clean_BLIsatisf16.json')
+      .defer(d4.json, 'datasets/clean_BLIindicators16.json')
+      .defer(d4.json, 'datasets/clean_BLIsatisf17.json')
+      .defer(d4.json, 'datasets/clean_BLIindicators17.json')
       .awaitAll(makeMapAndChart);
     }
 
